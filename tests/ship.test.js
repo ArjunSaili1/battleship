@@ -1,13 +1,34 @@
 import { ShipFactory } from '../src/index.js';
 
-const testShip = ShipFactory(3);
+test("Makes Ship", () => {
+    expect(ShipFactory(3).getShipArray()).toStrictEqual([
+        { position: 0, isHit: false},
+        { position: 1, isHit: false}, 
+        { position: 2, isHit: false}]);
+})
 
-test("Places Ship", () => {
-    testShip.placeShip([1,2], "horizontal");
-    console.log(testShip.getLength())
-    console.log(testShip.getShipArray())
+
+test("Marks hit", () => {
+    const testShip = ShipFactory(3);
+    testShip.hit(1);
     expect(testShip.getShipArray()).toStrictEqual([
-        { coord: [1, 2], isHit: false},
-        { coord: [2, 2], isHit: false}, 
-        { coord: [3, 2], isHit: false}]);
+        { position: 0, isHit: false},
+        { position: 1, isHit: true}, 
+        { position: 2, isHit: false}
+    ])
+})
+
+test("Checks if Sunk (Sunk)", () => {
+    const testShip = ShipFactory(3);
+    testShip.hit(0);
+    testShip.hit(1);
+    testShip.hit(2);
+    expect(testShip.isSunk()).toBe(true)
+})
+
+test("Checks if Sunk (Not Sunk)", () => {
+    const testShip = ShipFactory(3);
+    testShip.hit(0);
+    testShip.hit(2);
+    expect(testShip.isSunk()).toBe(false)
 })
