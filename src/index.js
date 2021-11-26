@@ -23,15 +23,16 @@ const ShipFactory = ((length) => {
         return tempShipArray;
     }
     
+    const getLength = () => length
+
     function hit(hitPosition){
         for(let i = 0; i <= ShipArray.length; i++){
             if(i == hitPosition){
                 ShipArray[i].isHit = true;
-                console.log(ShipArray[i].isHit);
             }
         }
     }
-    return{getShipArray, isSunk, hit }
+    return{getShipArray, isSunk, hit, getLength}
 });
 
 export { ShipFactory }
