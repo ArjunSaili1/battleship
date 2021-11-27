@@ -44,10 +44,8 @@ const Gameboard = (()=> {
             if(!shipElement.ship.isSunk()){
                 return false;
             }
-            else{
-                return true;
-            }
         })
+        return true;
     }
 
     return {placeShip, receiveAttack, getShips, allSunk, getMissedShots}

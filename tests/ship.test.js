@@ -58,3 +58,23 @@ test("Check if attack is received (hit)", ()=>{
     gameboard.receiveAttack([0,0]);
     expect(gameboard.getShips()[0].ship.getShipArray()[0].isHit).toBe(true);
 })
+
+test("Check if attack is received (miss)", ()=>{
+    const gameboard = Gameboard();
+    gameboard.placeShip([0,0], 5, "horizontal");
+    gameboard.receiveAttack([4,0])
+    expect(gameboard.getShips()[0].ship.getShipArray()[4].isHit).toBe(true)
+})
+
+test("Hit till sunk", ()=>{
+    const gameboard = Gameboard();
+    gameboard.placeShip([2,5], 5, "horizontal");
+    gameboard.receiveAttack([2,5]);
+    gameboard.receiveAttack([3,5]);
+    gameboard.receiveAttack([4,5]);
+    gameboard.receiveAttack([5,5]);
+    gameboard.receiveAttack([6,5]);
+    console.log(gameboard.getShips()[0].coords);
+    expect(gameboard.getShips()[0].ship.isSunk()).toBe(true)
+    expect(gameboard.allSunk()).toBe(true)
+})
