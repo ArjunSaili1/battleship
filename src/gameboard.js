@@ -25,7 +25,7 @@ const Gameboard = (()=> {
     function getMissedShots(){return missedShots}
 
     function receiveAttack(targetCoords){
-        let hit = false;
+        let hit;
         ships.forEach(shipElement => {
             for(let i = 0; i < shipElement.coords.length; i++){
                 if(shipElement.coords[i].every((val, index) => val === targetCoords[index])){
