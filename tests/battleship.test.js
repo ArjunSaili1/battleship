@@ -84,6 +84,17 @@ describe("Gameboard Tests", ()=>{
         expect(gameboard.getShips()[0].ship.getShipArray()[4].isHit).toBe(false)
         expect(gameboard.getMissedShots()).toStrictEqual([[4,7]])
     })
+
+    test("Check if only single block is hit at once", ()=>{
+        const gameboard = Gameboard();
+        gameboard.placeShip([0,0], 5, "horizontal");
+        gameboard.receiveAttack([0,0])
+        expect(gameboard.getShips()[0].ship.getShipArray()[0].isHit).toBe(true);
+        expect(gameboard.getShips()[0].ship.getShipArray()[1].isHit).toBe(false);
+        expect(gameboard.getShips()[0].ship.getShipArray()[2].isHit).toBe(false);
+        expect(gameboard.getShips()[0].ship.getShipArray()[3].isHit).toBe(false);
+        expect(gameboard.getShips()[0].ship.getShipArray()[4].isHit).toBe(false);
+    })
     
     test("Hit till sunk", ()=>{
         const gameboard = Gameboard();
