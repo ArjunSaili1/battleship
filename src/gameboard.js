@@ -8,18 +8,30 @@ const Gameboard = (()=> {
         return ships;
     }
 
+    function isValidPlacement(placementCoordinates, length, orientation){
+        if(orientation == "horizontal"){
+            return (placementCoordinates[0] + length < 10)
+        }
+        return (placementCoordinates[1] + length < 10)
+    }
+
     function placeShip(placementCoordinates, length, orientation){
         const newShip = ShipFactory(length);
         const shipCoordinates = [];
-        for(let i = 0; i < length; i++){
-            if(orientation == "horizontal"){
-                shipCoordinates.push([placementCoordinates[0]+ i, placementCoordinates[1]])
+        if(isValidPlacement(placementCoordinates, length, orientation)){
+            for(let i = 0; i < length; i++){
+                if(orientation == "horizontal"){
+                    shipCoordinates.push([placementCoordinates[0]+ i, placementCoordinates[1]])
+                }
+                else{
+                    shipCoordinates.push([placementCoordinates[0], placementCoordinates[1] + i]);
+                }
             }
-            else{
-                shipCoordinates.push([placementCoordinates[0], placementCoordinates[1] + i]);
-            }
+            ships.push({ship: newShip, coords: shipCoordinates});
+        }else{
+            return false
+            console.log("Ship does not fit!")
         }
-        ships.push({ship: newShip, coords: shipCoordinates});
     }
 
     function getMissedShots(){return missedShots}
