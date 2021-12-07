@@ -50,11 +50,23 @@ describe("Gameboard Tests", ()=>{
         gameboard.placeShip([0,0], 5, "vertical");
         expect(gameboard.getShips()[0].coords).toStrictEqual([[0,0],[0,1],[0,2],[0,3],[0,4]])
     })
+
+    test("Check if invalid cooridnates are detected (horizontal)", ()=>{
+        const gameboard = Gameboard();
+        expect(gameboard.placeShip([9,0], 5, "horizontal")).toBe(false);
+        expect(gameboard.placeShip([0,0], 5, "horizontal")).not.toBe(false)
+    })
+
+    test("Check if invalid cooridnates are detected (vertical)", ()=>{
+        const gameboard = Gameboard();
+        expect(gameboard.placeShip([2,9], 5, "vertical")).toBe(false);
+        expect(gameboard.placeShip([2,3], 6, "vertical")).not.toBe(false);
+    })
     
     test("Check if gameboard stores ship", ()=> {
         const gameboard = Gameboard();
-        gameboard.placeShip([0,0], 10);
-        expect(gameboard.getShips()[0].ship.getLength()).toStrictEqual(10)
+        gameboard.placeShip([0,0], 5);
+        expect(gameboard.getShips()[0].ship.getLength()).toStrictEqual(5)
     })
     
     test("Check if attack is received (hit)", ()=>{
@@ -121,4 +133,3 @@ describe("Player & Computer Tests", ()=>{
         expect(setAllShots.length == computer.allShots.length)
     })
 })
-
