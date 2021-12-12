@@ -10,9 +10,17 @@ const Gameboard = (()=> {
 
     function isValidPlacement(placementCoordinates, length, orientation){
         if(orientation == "horizontal"){
-            return (placementCoordinates[0] + length < 10)
+            if((placementCoordinates[0] + length) < 10){
+                return true
+            }
+            return false
         }
-        return (placementCoordinates[1] + length < 10)
+        else{
+            if((placementCoordinates[1] + length) < 10){
+                return true
+            }
+            return false;
+        } 
     }
 
     function placeShip(placementCoordinates, length, orientation){
@@ -30,7 +38,6 @@ const Gameboard = (()=> {
             ships.push({ship: newShip, coords: shipCoordinates});
         }else{
             return false
-            console.log("Ship does not fit!")
         }
     }
 
@@ -60,7 +67,7 @@ const Gameboard = (()=> {
         return true;
     }
 
-    return {placeShip, receiveAttack, getShips, allSunk, getMissedShots}
+    return {placeShip, receiveAttack, getShips, allSunk, getMissedShots, isValidPlacement}
 })
 
 export {Gameboard}

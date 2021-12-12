@@ -133,7 +133,7 @@ describe("Player & Computer Tests", ()=>{
         expect(player.gameboard.getMissedShots().length).toBeGreaterThan(0)
     })
 
-    test("No Duplicate Generated Coordinates", ()=>{
+    test("Computer does not shoot same spot twice", ()=>{
         const player = Player("Test")
         const computer = Computer();
         computer.setEnemyBoard(player.gameboard)
@@ -142,5 +142,64 @@ describe("Player & Computer Tests", ()=>{
         }
         const setAllShots = new Set(computer.allShot)
         expect(setAllShots.length == computer.allShots.length)
+    })
+
+    test("Computer does not place ships on occupied coordinates", ()=>{
+        const computer = Computer()
+        computer.placeAllShips();
+        const allComputerCoords = []
+
+        for(let i = 0; i < computer.gameboard.getShips().length; i++){
+            allComputerCoords.push(computer.gameboard.getShips()[i].coords)
+        }
+
+        function duplicateHelper(array, index){
+            for(let i = 0; i < allComputerCoords.length; i++){
+                for(let k = 0; k < allComputerCoords[i].length; k++){
+                    if(index[0] !== i && index[1] !== k){
+                        if(allComputerCoords[i][k][0] === array[0] && allComputerCoords[i][k][1] === array[1]){
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+
+        function duplicateCheck(){
+            for(let i = 0; i < allComputerCoords.length; i++){
+                for(let k = 0; k < allComputerCoords[i].length; k++){
+                    let testCoord = allComputerCoords[i][k]
+                    if(duplicateHelper(testCoord, [i, k])){
+                        return true;
+                    }
+                }
+            }
+            return false
+        }
+        
+        expect(duplicateCheck()).toBe(false)
+    })
+
+    test("Computer generated ships fit on board", ()=>{
+        const computer = Computer()
+        computer.placeAllShips();
+        const allComputerCoords = []
+        for(let i = 0; i < computer.gameboard.getShips().length; i++){
+            allComputerCoords.push(computer.gameboard.getShips()[i].coords)
+        }
+        function checkIfOffBoard(){
+            for(let i = 0; i < allComputerCoords.length; i++){
+                for(let k = 0; k < allComputerCoords[i].length; k++){
+                    for(let j = 0; j < allComputerCoords[i][k].length; j++){
+                        if(allComputerCoords[i][k][j] > 9){
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
+        expect(checkIfOffBoard()).toBe(false)
     })
 })

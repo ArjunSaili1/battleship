@@ -30,22 +30,82 @@ const Computer = (()=>{
         }
     }
 
-    function generateRandomMove(){
+    function coordinateExists(newShipCoord){
+        const allShips = computerPlayer.gameboard.getShips();
+        for(let i = 0; i < allShips.length; i++){
+            const allCoords = allShips[i].coords
+            for(let k = 0; k < allCoords.length; k++){
+                if(allCoords[k][0] === newShipCoord[0] && allCoords[k][1] === newShipCoord[1]){
+                    return true
+                }
+            }
+        }
+        return false;
+    }
+
+    function shipExists(placementCoordinates, length, orientation){
+        for(let i = 0; i < length; i++){
+            if(orientation == "horizontal"){
+                if(coordinateExists([placementCoordinates[0]+ i, placementCoordinates[1]])){
+                    return true
+                }
+            }
+            if(orientation == "vertical"){
+                if(coordinateExists([placementCoordinates[0], placementCoordinates[1] + i])){
+                    return true
+                }
+            }
+        }
+        return false;
+    }
+
+    function generateRandomOrientation(){
+        if(Math.round(Math.random()) == 0){
+            return "horizontal"
+        }
+        return "vertical"
+
+    }
+
+    function placeShip(length){
+        let foundShip = false;
+        let randomCoord;
+        let randomOrient
+        while(foundShip == false){
+            randomCoord = generateRandomCoordinates();
+            randomOrient = generateRandomOrientation();
+            if(computerPlayer.gameboard.isValidPlacement(randomCoord, length, randomOrient) === true &&
+            shipExists(randomCoord, length, randomOrient) === false){
+                foundShip = true;
+            }
+        }
+        computerPlayer.gameboard.placeShip(randomCoord, length, randomOrient)
+    }
+
+    function placeAllShips(){
+        const carrier = placeShip(5)
+        const battleship = placeShip(4)
+        const submarine = placeShip(3)
+        const cruiser = placeShip(3)
+        const destroyer = placeShip(2)
+    }
+
+    function generateRandomCoordinates(){
         let coordinates;
-        let allShots = [];
-        do{
-            coordinates = [Math.floor(Math.random() * 11), Math.floor(Math.random() * 11)]
-        } while(alreadyShot(coordinates))
-        allShots.push(coordinates)
+        coordinates = [Math.floor(Math.random() * 10), Math.floor(Math.random() * 10)]
         return coordinates;
     }
 
     function attack(){
-        const coordinates = generateRandomMove()
+        let coordinates;
+        do{
+            coordinates = generateRandomCoordinates()
+        } while(alreadyShot(coordinates))
+        allShots.push(coordinates)
         computerPlayer.attack(coordinates)
     }
 
-    return Object.assign({}, computerPlayer, {generateRandomMove, attack, allShots})
+    return Object.assign({}, computerPlayer, {attack, placeAllShips, allShots})
 })
 
 export {Player, Computer}
