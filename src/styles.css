@@ -1,3 +1,52 @@
-body{
-    background-color: red;
+@media only screen and (max-width: 1200px) {
+    .grid-container{
+        grid-template-columns: repeat(10, 2.5rem) !important; 
+        grid-template-rows: repeat(10, 2.5rem)  !important;
+    }
+}
+
+@media only screen and (max-width: 1030px) {
+    .grid-container{
+        grid-template-columns: repeat(10, 2.25rem) !important; 
+        grid-template-rows: repeat(10, 2.25rem)  !important;
+    }
+    .gameboard-flex{
+        gap: 4rem !important;
+    }
+}
+
+@media only screen and (max-width: 930px) {
+    .grid-container{
+        grid-template-columns: repeat(10, 2.25rem) !important; 
+        grid-template-rows: repeat(10, 2.25rem)  !important;
+    }
+}
+
+@media only screen and (max-width: 370px) {
+    .grid-container{
+        grid-template-columns: repeat(10, 1.8rem) !important; 
+        grid-template-rows: repeat(10, 1.8rem)  !important;
+    }
+}
+
+.grid-container{
+    width: auto;
+    display: grid;
+    border-style: solid;
+    border-color: black;
+    grid-template-columns: repeat(10, 3rem);
+    grid-template-rows: repeat(10, 3rem);
+}
+
+.coordinate{
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+}
+
+.gameboard-flex{
+    display: flex;
+    justify-content: center;
+    gap: 12rem;
+    flex-wrap: wrap;
 }

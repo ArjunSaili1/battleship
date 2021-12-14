@@ -1,10 +1,12 @@
 import { ShipFactory } from './shipFactory.js';
 import { Gameboard } from './gameboard'
 import { Player, Computer} from './player'
+import { displayControl } from './displayControl.js';
 
 const game = (()=>{
 
     function gameSetup(){
+        displayControl.render();
         const computerPlayer = Computer();
         computerPlayer.placeAllShips();
         const player = Player("Test Name");
@@ -18,4 +20,6 @@ const game = (()=>{
     return {gameSetup}
 })()
 
-// game.gameSetup();
+game.gameSetup();
+
+export {game}

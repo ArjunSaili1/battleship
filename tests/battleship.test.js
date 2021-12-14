@@ -1,7 +1,7 @@
 import { ShipFactory } from '../src/shipFactory.js';
 import { Gameboard } from '../src/gameboard'
 import { Player, Computer} from '../src/player'
-
+import {game} from '../src/index'
 
 describe("Ship Factory Tests", ()=>{
     test("Makes Ship", () => {
@@ -202,4 +202,8 @@ describe("Player & Computer Tests", ()=>{
 
         expect(checkIfOffBoard()).toBe(false)
     })
+})
+
+describe("Main Game Loop Test", ()=>{
+    
 })
