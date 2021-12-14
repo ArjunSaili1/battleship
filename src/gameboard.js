@@ -1,4 +1,4 @@
-import { ShipFactory } from './index.js';
+import { ShipFactory } from './shipFactory.js';
 
 const Gameboard = (()=> {
     const ships = [];

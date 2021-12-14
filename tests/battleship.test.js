@@ -1,4 +1,4 @@
-import { ShipFactory } from '../src/index.js';
+import { ShipFactory } from '../src/shipFactory.js';
 import { Gameboard } from '../src/gameboard'
 import { Player, Computer} from '../src/player'
 
