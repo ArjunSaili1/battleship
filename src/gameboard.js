@@ -25,20 +25,25 @@ const Gameboard = (()=> {
 
     function placeShip(placementCoordinates, length, orientation){
         const newShip = ShipFactory(length);
-        const shipCoordinates = [];
         if(isValidPlacement(placementCoordinates, length, orientation)){
-            for(let i = 0; i < length; i++){
-                if(orientation == "horizontal"){
-                    shipCoordinates.push([placementCoordinates[0]+ i, placementCoordinates[1]])
-                }
-                else{
-                    shipCoordinates.push([placementCoordinates[0], placementCoordinates[1] + i]);
-                }
-            }
-            ships.push({ship: newShip, coords: shipCoordinates});
+            const newShipCoords = getCoordinates(placementCoordinates, length, orientation);
+            ships.push({ship: newShip, coords: newShipCoords});
         }else{
             return false
         }
+    }
+
+    function getCoordinates(placementCoordinates, length, orientation){
+        const shipCoordinates = [];
+        for(let i = 0; i < length; i++){
+            if(orientation == "horizontal"){
+                shipCoordinates.push([placementCoordinates[0]+ i, placementCoordinates[1]])
+            }
+            else{
+                shipCoordinates.push([placementCoordinates[0], placementCoordinates[1] + i]);
+            }
+        }
+        return shipCoordinates;
     }
 
     function getMissedShots(){return missedShots}
@@ -58,6 +63,16 @@ const Gameboard = (()=> {
         }
     }
 
+    function getSunkShips(){
+        const sunkShips = [];
+        ships.forEach(shipElement => {
+            if(shipElement.ship.isSunk()){
+                sunkShips.push(shipElement);
+            }
+        })
+        return sunkShips;
+    }
+
     function allSunk(){
         ships.forEach(shipElement => {
             if(!shipElement.ship.isSunk()){
@@ -67,7 +82,7 @@ const Gameboard = (()=> {
         return true;
     }
 
-    return {placeShip, receiveAttack, getShips, allSunk, getMissedShots, isValidPlacement}
+    return {placeShip, receiveAttack, getShips, allSunk, getMissedShots, isValidPlacement, getSunkShips, getCoordinates}
 })
 
 export {Gameboard}
