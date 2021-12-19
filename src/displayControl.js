@@ -10,6 +10,7 @@ const displayControl = (()=>{
     }
 
     function renderGameboard(gameboardShips, gameboardGrid){
+        clearGameboards(gameboardGrid)
         let coordColour;
         for(let i=0; i < gameboardShips.length; i++){
             if(gameboardShips[i].ship.isSunk()){
@@ -103,7 +104,13 @@ const displayControl = (()=>{
         displayWrap.appendChild(placeShipCtn);
     }
 
-    function clearDisplay(){}
+    function clearGameboards(gameboardGrid){
+        for(let i = 0; i < gameboardGrid.length; i++){
+            for(let m = 0; m < gameboardGrid[i].children.length; m++){ 
+                gameboardGrid[i].children[m].style.backgroundColor = coordColour;
+            };
+        }
+    }
 
     return {render, renderGameboard, renderPlaceShip}
 })()
