@@ -1,3 +1,8 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
 @media only screen and (max-width: 1200px) {
     .grid-container{
         grid-template-columns: repeat(10, 2.5rem) !important; 
@@ -49,4 +54,37 @@
     justify-content: center;
     gap: 12rem;
     flex-wrap: wrap;
+}
+
+#computer-grid{
+
+}
+
+.display-wrap{
+    display: flex;
+    flex-direction: column;
+}
+
+.change-axis-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.change-axis-button{
+    padding: 10px;
+    margin: 20px;
+    font-size: 1.5rem;
+}
+
+.place-ship-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ship-buttons > *{
+    margin: 20px;
+    padding: 5px;
+    font-size: 30px;
 }
