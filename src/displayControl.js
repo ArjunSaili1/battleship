@@ -98,7 +98,7 @@ const displayControl = (()=>{
         cruiserBtn.textContent = "Crusier";
         const destroyerBtn = document.createElement("button");
         destroyerBtn.textContent = "Destroyer";
-        let shipBtns = [carrierBtn, battleshipBtn, subBtn, destroyerBtn, carrierBtn];
+        let shipBtns = [carrierBtn, battleshipBtn, subBtn, destroyerBtn, cruiserBtn];
         shipBtns.forEach(shipBtn => {shipButtonCtn.appendChild(shipBtn)});
         displayWrap.appendChild(placeShipCtn);
     }
