@@ -1,15 +1,15 @@
 const displayControl = (()=>{
 
     let grids = [];
+    const displayWrap = document.querySelector(".display-wrap");
 
     function render(playerGameboard, computerGameboard){
-        generateGrids();
-        renderShips(computerGameboard.getShips(), grids[1]);
-        renderShips(playerGameboard.getShips(), grids[0]);
+        renderGameboard(computerGameboard.getShips(), grids[1]);
+        renderGameboard(playerGameboard.getShips(), grids[0]);
 
     }
 
-    function renderShips(gameboardShips, gameboardGrid){
+    function renderGameboard(gameboardShips, gameboardGrid){
         let coordColour;
         for(let i=0; i < gameboardShips.length; i++){
             if(gameboardShips[i].ship.isSunk()){
@@ -33,7 +33,6 @@ const displayControl = (()=>{
     }
 
     function generateGrids(){
-        const displayWrap = document.querySelector(".display-wrap");
         const gameboardFlex = document.createElement('div');
         gameboardFlex.classList.add("gameboard-flex");
         displayWrap.appendChild(gameboardFlex)
@@ -66,11 +65,47 @@ const displayControl = (()=>{
     }
 
     function renderPlaceShip(){
+        generateAxisSwitchBtn()
+        generateGrids();
+        grids[1].style.display = 'none';
+        generateShipPlaceButtons();
+
+    }
+
+    function generateAxisSwitchBtn(){
+        const changeAxisCtn = document.createElement("div");
+        changeAxisCtn.classList.add("change-axis-container");
+        const changeAxisBtn = document.createElement("button");
+        changeAxisBtn.classList.add('change-axis-button');
+        changeAxisBtn.textContent = "Axis: x";
+        changeAxisCtn.appendChild(changeAxisBtn);
+        displayWrap.appendChild(changeAxisCtn);
+    }
+
+    function generateShipPlaceButtons(){
+        const placeShipCtn = document.createElement("div");
+        placeShipCtn.classList.add("place-ship-container");
+        const shipButtonCtn = document.createElement("div");
+        shipButtonCtn.classList.add("ship-buttons");
+        placeShipCtn.appendChild(shipButtonCtn);
+        const carrierBtn = document.createElement("button");
+        carrierBtn.textContent = "Carrier";
+        const battleshipBtn = document.createElement("button");
+        battleshipBtn.textContent = "Battleship";
+        const subBtn = document.createElement("button");
+        subBtn.textContent = "Submarine";
+        const cruiserBtn = document.createElement("button");
+        cruiserBtn.textContent = "Crusier";
+        const destroyerBtn = document.createElement("button");
+        destroyerBtn.textContent = "Destroyer";
+        let shipBtns = [carrierBtn, battleshipBtn, subBtn, destroyerBtn, carrierBtn];
+        shipBtns.forEach(shipBtn => {shipButtonCtn.appendChild(shipBtn)});
+        displayWrap.appendChild(placeShipCtn);
     }
 
     function clearDisplay(){}
 
-    return {render}
+    return {render, renderGameboard, renderPlaceShip}
 })()
 
 export {displayControl}

@@ -56,10 +56,6 @@
     flex-wrap: wrap;
 }
 
-#computer-grid{
-
-}
-
 .display-wrap{
     display: flex;
     flex-direction: column;
@@ -87,8 +83,4 @@
     margin: 20px;
     padding: 5px;
     font-size: 30px;
-}
-
-#computer-grid{
-    display: none;
 }
