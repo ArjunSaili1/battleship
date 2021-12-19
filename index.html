@@ -7,9 +7,24 @@
     <title>Document</title>
 </head>
 <body>
-    <div id='player-grid' class='gameboard-flex'>
-        <span class='grid-container'></span>
-        <span id='computer-grid' class='grid-container'></span>
+    <div class="display-wrap">
+        <div class="change-axis-container">
+            <button class='change-axis-button'>Axis: X</button>
+        </div>
+        <div class='gameboard-flex'>
+            <span id='player-grid' class='grid-container'></span>
+            <span id='computer-grid' class='grid-container'></span>
+        </div>
+        <div class="place-ship-container">
+            <div class="ship-buttons">
+                <button class="carrier">Carrier</button>
+                <button class="battleship">Battleship</button>
+                <button class="submarine">Submarine</button>
+                <button class="cruiser">Cruiser</button>
+                <button class="destroyer">Destroyer</button>
+
+            </span>
+        </div>
     </div>
     <script src='bundle.js'></script>
 </body>
