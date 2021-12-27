@@ -10,11 +10,6 @@ const game = (()=>{
         const computerPlayer = Computer();
         computerPlayer.placeAllShips();
         const player = Player("Test Name");
-        player.gameboard.placeShip([0, 0], 5, "horizontal");
-        player.gameboard.placeShip([0, 2], 4, "horizontal");
-        player.gameboard.placeShip([0, 4], 3, "horizontal");
-        player.gameboard.placeShip([0, 6], 3, "horizontal");
-        player.gameboard.placeShip([0, 8], 2, "horizontal");
         player.gameboard.receiveAttack([0,0]);
         placeShipDisplay.renderPlaceShip(player.gameboard);
         //displayControl.render(player.gameboard, computerPlayer.gameboard);

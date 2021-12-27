@@ -14,6 +14,7 @@ const displayControl = (()=>{
 
     function renderGameboard(gameboardShips, gameboardGrid){
         clearGameboards(gameboardGrid)
+        console.log("abc")
         let coordColour;
         for(let i=0; i < gameboardShips.length; i++){
             if(gameboardShips[i].ship.isSunk()){
@@ -23,7 +24,7 @@ const displayControl = (()=>{
                 if(gameboardShips[i].ship.getShipArray()[k].isHit && !(gameboardShips[i].ship.isSunk())){
                     coordColour = 'red';
                 }
-                else if(!gameboardShips[i].ship.isSunk()){
+                else{
                     coordColour = 'blue';
                 };
                 for(let m = 0; m < gameboardGrid.children.length; m++){

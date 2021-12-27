@@ -17,7 +17,6 @@ const placeShipDisplay = (()=>{
         generateAxisSwitchBtn()
         displayControl.generateGrids();
         grids = document.querySelectorAll(".grid-container");
-        console.log(grids);
         grids[1].style.display = 'none';
         mainGrid = grids[0];
         generateShipPlaceButtons();
@@ -29,27 +28,46 @@ const placeShipDisplay = (()=>{
 
     function removeShipOutline(e){
         for(let i = 0; i < highlightElements.length; i++){
-            highlightElements[i].style.backgroundColor = "unset";
+            if(highlightElements[i].style.backgroundColor == "green" || highlightElements[i].style.backgroundColor == "red"){
+                highlightElements[i].style.backgroundColor = "unset";
+            }
         }
     }
 
+    function placeShipDOM(e){
+        const parsedCoords = [parseInt(e.target.dataset.xCoordinate), parseInt(e.target.dataset.yCoordinate)];
+        if(!(gameboard.shipExists(parsedCoords, selectedShipBtn.dataset.size, orientationSelected))){
+            gameboard.placeShip(parsedCoords, selectedShipBtn.dataset.size, orientationSelected);
+            displayControl.renderGameboard(gameboard.getShips(), mainGrid);
+        }
+        console.log(gameboard.getShips());
+    }
+
     function displayShipOutline(e){
-        const size = selectedShipBtn.dataset.size;
-        const placementCoords = [e.target.dataset.xCoordinate, e.target.dataset.yCoordinate]
+        const size = parseInt(selectedShipBtn.dataset.size);
+        let validPlacement = false;
+        const placementCoords = [parseInt(e.target.dataset.xCoordinate), parseInt(e.target.dataset.yCoordinate)]
         const highlightCoords = (gameboard.getCoordinates(placementCoords, size, orientationSelected));
         for(let i = 0; i < mainGrid.children.length; i++){
             for(let k = 0; k < highlightCoords.length; k++){
                 if(mainGrid.children[i].dataset.xCoordinate == highlightCoords[k][0]
-                    && mainGrid.children[i].dataset.yCoordinate == highlightCoords[k][1]){
-                        if(gameboard.isValidPlacement(placementCoords, size, orientationSelected)){
+                    && mainGrid.children[i].dataset.yCoordinate == highlightCoords[k][1] &&
+                    mainGrid.children[i].style.backgroundColor !== "blue"){
+                        if(gameboard.isValidPlacement(placementCoords, size, orientationSelected) && 
+                        !(gameboard.shipExists(placementCoords, size, orientationSelected))){
+                            validPlacement = true;
                             mainGrid.children[i].style.backgroundColor = "green";
                         }
                         else{
+                            validPlacement = false;
                             mainGrid.children[i].style.backgroundColor = "red";
                         }
                         highlightElements.push(mainGrid.children[i]);
                     }
             }
+        }
+        if(validPlacement){
+            e.target.addEventListener("click", (e)=>{placeShipDOM(e)});
         }
     }
 
