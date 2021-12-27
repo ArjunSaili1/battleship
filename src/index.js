@@ -2,6 +2,7 @@ import { ShipFactory } from './shipFactory.js';
 import { Gameboard } from './gameboard'
 import { Player, Computer} from './player'
 import { displayControl } from './displayControl.js';
+import { placeShipDisplay } from './placeShipDisplay.js';
 
 const game = (()=>{
 
@@ -15,7 +16,7 @@ const game = (()=>{
         player.gameboard.placeShip([0, 6], 3, "horizontal");
         player.gameboard.placeShip([0, 8], 2, "horizontal");
         player.gameboard.receiveAttack([0,0]);
-        displayControl.renderPlaceShip();
+        placeShipDisplay.renderPlaceShip();
     }
 
     return {gameSetup}
