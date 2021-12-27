@@ -6,6 +6,7 @@ const placeShipDisplay = (()=>{
     let selectedShipBtn;
     let orientationSelected = "horizontal";
     let grids;
+    let shipBtns;
     let mainGrid;
     const displayWrap = document.querySelector(".display-wrap");
     let gameboard;
@@ -39,8 +40,23 @@ const placeShipDisplay = (()=>{
         if(!(gameboard.shipExists(parsedCoords, selectedShipBtn.dataset.size, orientationSelected))){
             gameboard.placeShip(parsedCoords, selectedShipBtn.dataset.size, orientationSelected);
             displayControl.renderGameboard(gameboard.getShips(), mainGrid);
+            switchShip()
         }
         console.log(gameboard.getShips());
+    }
+
+    function switchShip(){
+        if(gameboard.getShips().length > 4){
+            selectedShipBtn.remove();
+            selectedShipBtn = null;
+        }
+        selectedShipBtn.remove();
+        if(shipBtns.indexOf(selectedShipBtn) == shipBtns.length - 1){
+            selectedShipBtn = shipBtns[0]
+        }
+        else{
+            selectedShipBtn = shipBtns[shipBtns.indexOf(selectedShipBtn) + 1];
+        }
     }
 
     function displayShipOutline(e){
@@ -112,7 +128,7 @@ const placeShipDisplay = (()=>{
         const cruiserBtn = document.createElement("button");
         cruiserBtn.textContent = "Crusier";
         cruiserBtn.dataset.size = "2";
-        let shipBtns = [carrierBtn, battleshipBtn, subBtn, destroyerBtn, cruiserBtn];
+        shipBtns = [carrierBtn, battleshipBtn, subBtn, destroyerBtn, cruiserBtn];
         shipBtns.forEach(shipBtn => {
             shipBtn.type = 'radio';
             shipButtonCtn.appendChild(shipBtn)
