@@ -82,7 +82,35 @@ const Gameboard = (()=> {
         return true;
     }
 
-    return {placeShip, receiveAttack, getShips, allSunk, getMissedShots, isValidPlacement, getSunkShips, getCoordinates}
+    function coordinateExists(newShipCoord){
+        for(let i = 0; i < ships.length; i++){
+            const allCoords = ships[i].coords
+            for(let k = 0; k < allCoords.length; k++){
+                if(allCoords[k][0] === newShipCoord[0] && allCoords[k][1] === newShipCoord[1]){
+                    return true
+                }
+            }
+        }
+        return false;
+    }
+
+    function shipExists(placementCoordinates, length, orientation){
+        for(let i = 0; i < length; i++){
+            if(orientation == "horizontal"){
+                if(coordinateExists([placementCoordinates[0]+ i, placementCoordinates[1]])){
+                    return true
+                }
+            }
+            if(orientation == "vertical"){
+                if(coordinateExists([placementCoordinates[0], placementCoordinates[1] + i])){
+                    return true
+                }
+            }
+        }
+        return false;
+    }
+
+    return {placeShip, receiveAttack, getShips, allSunk, getMissedShots, isValidPlacement, getSunkShips, getCoordinates, shipExists}
 })
 
 export {Gameboard}

@@ -7,6 +7,7 @@ const displayControl = (()=>{
 
     function render(playerGameboard, computerGameboard){
         generateGrids();
+        console.log(computerGameboard.getShips());
         renderGameboard(computerGameboard.getShips(), grids[1]);
         renderGameboard(playerGameboard.getShips(), grids[0]);
     }

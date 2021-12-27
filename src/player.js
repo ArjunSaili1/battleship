@@ -30,35 +30,6 @@ const Computer = (()=>{
         }
     }
 
-    function coordinateExists(newShipCoord){
-        const allShips = computerPlayer.gameboard.getShips();
-        for(let i = 0; i < allShips.length; i++){
-            const allCoords = allShips[i].coords
-            for(let k = 0; k < allCoords.length; k++){
-                if(allCoords[k][0] === newShipCoord[0] && allCoords[k][1] === newShipCoord[1]){
-                    return true
-                }
-            }
-        }
-        return false;
-    }
-
-    function shipExists(placementCoordinates, length, orientation){
-        for(let i = 0; i < length; i++){
-            if(orientation == "horizontal"){
-                if(coordinateExists([placementCoordinates[0]+ i, placementCoordinates[1]])){
-                    return true
-                }
-            }
-            if(orientation == "vertical"){
-                if(coordinateExists([placementCoordinates[0], placementCoordinates[1] + i])){
-                    return true
-                }
-            }
-        }
-        return false;
-    }
-
     function generateRandomOrientation(){
         if(Math.round(Math.random()) == 0){
             return "horizontal"
@@ -75,7 +46,7 @@ const Computer = (()=>{
             randomCoord = generateRandomCoordinates();
             randomOrient = generateRandomOrientation();
             if(computerPlayer.gameboard.isValidPlacement(randomCoord, length, randomOrient) === true &&
-            shipExists(randomCoord, length, randomOrient) === false){
+            computerPlayer.gameboard.shipExists(randomCoord, length, randomOrient) === false){
                 foundShip = true;
             }
         }

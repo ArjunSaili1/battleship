@@ -1,7 +1,6 @@
 import { ShipFactory } from '../src/shipFactory.js';
 import { Gameboard } from '../src/gameboard'
 import { Player, Computer} from '../src/player'
-import {game} from '../src/index'
 
 describe("Ship Factory Tests", ()=>{
     test("Makes Ship", () => {
@@ -140,7 +139,7 @@ describe("Player & Computer Tests", ()=>{
         for(let i = 0; i < 20; i++){
             computer.attack()
         }
-        const setAllShots = new Set(computer.allShot)
+        const setAllShots = new Set(computer.allShots)
         expect(setAllShots.length == computer.allShots.length)
     })
 
@@ -183,6 +182,7 @@ describe("Player & Computer Tests", ()=>{
     test("Computer generated ships fit on board", ()=>{
         const computer = Computer()
         computer.placeAllShips();
+        console.log(computer.gameboard.getShips())
         const allComputerCoords = []
         for(let i = 0; i < computer.gameboard.getShips().length; i++){
             allComputerCoords.push(computer.gameboard.getShips()[i].coords)

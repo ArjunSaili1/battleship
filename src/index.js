@@ -16,7 +16,7 @@ const game = (()=>{
         player.gameboard.placeShip([0, 6], 3, "horizontal");
         player.gameboard.placeShip([0, 8], 2, "horizontal");
         player.gameboard.receiveAttack([0,0]);
-        placeShipDisplay.renderPlaceShip();
+        displayControl.render(player.gameboard, computerPlayer.gameboard);
     }
 
     return {gameSetup}
