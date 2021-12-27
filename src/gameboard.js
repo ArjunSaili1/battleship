@@ -9,14 +9,16 @@ const Gameboard = (()=> {
     }
 
     function isValidPlacement(placementCoordinates, length, orientation){
+        const parsedCoords = [parseInt(placementCoordinates[0]), parseInt(placementCoordinates[1])]
+        const parsedLength = parseInt(length - 1);
         if(orientation == "horizontal"){
-            if((placementCoordinates[0] + length) < 10){
+            if((parsedCoords[0] + parsedLength) < 10){
                 return true
             }
             return false
         }
         else{
-            if((placementCoordinates[1] + length) < 10){
+            if((parsedCoords[1] + parsedLength) < 10){
                 return true
             }
             return false;
@@ -35,12 +37,13 @@ const Gameboard = (()=> {
 
     function getCoordinates(placementCoordinates, length, orientation){
         const shipCoordinates = [];
+        const parsedCoords = [parseInt(placementCoordinates[0]), parseInt(placementCoordinates[1])]
         for(let i = 0; i < length; i++){
             if(orientation == "horizontal"){
-                shipCoordinates.push([placementCoordinates[0]+ i, placementCoordinates[1]])
+                shipCoordinates.push([parsedCoords[0]+ i, parsedCoords[1]])
             }
             else{
-                shipCoordinates.push([placementCoordinates[0], placementCoordinates[1] + i]);
+                shipCoordinates.push([parsedCoords[0], parsedCoords[1] + i]);
             }
         }
         return shipCoordinates;

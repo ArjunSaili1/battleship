@@ -4,24 +4,53 @@ import { displayControl } from './displayControl.js';
 const placeShipDisplay = (()=>{
 
     let selectedShipBtn;
+    let orientationSelected = "horizontal";
     let grids;
+    let mainGrid;
     const displayWrap = document.querySelector(".display-wrap");
+    let gameboard;
+    let highlightElements = [];
 
 
-    function renderPlaceShip(){
+    function renderPlaceShip(playerGameboard){
+        gameboard = playerGameboard;
         generateAxisSwitchBtn()
         displayControl.generateGrids();
         grids = document.querySelectorAll(".grid-container");
         console.log(grids);
         grids[1].style.display = 'none';
+        mainGrid = grids[0];
         generateShipPlaceButtons();
-        for(let i = 0; i < grids[0].children.length; i++){
-            grids[0].children[i].addEventListener("mouseover", (e)=>{displayShipOutline(e)})
+        for(let i = 0; i < mainGrid.children.length; i++){
+            mainGrid.children[i].addEventListener("mouseleave", (e)=>{removeShipOutline(e)})
+            mainGrid.children[i].addEventListener("mouseover", (e)=>{displayShipOutline(e)})
+        }
+    }
+
+    function removeShipOutline(e){
+        for(let i = 0; i < highlightElements.length; i++){
+            highlightElements[i].style.backgroundColor = "unset";
         }
     }
 
     function displayShipOutline(e){
-        console.log(selectedShipBtn.dataset.size);
+        const size = selectedShipBtn.dataset.size;
+        const placementCoords = [e.target.dataset.xCoordinate, e.target.dataset.yCoordinate]
+        const highlightCoords = (gameboard.getCoordinates(placementCoords, size, orientationSelected));
+        for(let i = 0; i < mainGrid.children.length; i++){
+            for(let k = 0; k < highlightCoords.length; k++){
+                if(mainGrid.children[i].dataset.xCoordinate == highlightCoords[k][0]
+                    && mainGrid.children[i].dataset.yCoordinate == highlightCoords[k][1]){
+                        if(gameboard.isValidPlacement(placementCoords, size, orientationSelected)){
+                            mainGrid.children[i].style.backgroundColor = "green";
+                        }
+                        else{
+                            mainGrid.children[i].style.backgroundColor = "red";
+                        }
+                        highlightElements.push(mainGrid.children[i]);
+                    }
+            }
+        }
     }
 
     function generateAxisSwitchBtn(){
@@ -30,6 +59,16 @@ const placeShipDisplay = (()=>{
         const changeAxisBtn = document.createElement("button");
         changeAxisBtn.classList.add('change-axis-button');
         changeAxisBtn.textContent = "Horizontal";
+        changeAxisBtn.addEventListener("click", (e)=>{
+            if(orientationSelected == "horizontal"){
+                orientationSelected = "vertical"
+                e.target.textContent = "Vertical";
+            }
+            else{
+                orientationSelected = "horizontal"
+                e.target.textContent = "Horizontal";
+            }
+        })
         changeAxisCtn.appendChild(changeAxisBtn);
         displayWrap.appendChild(changeAxisCtn);
     }
