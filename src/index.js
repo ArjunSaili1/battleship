@@ -6,16 +6,32 @@ import { placeShipDisplay } from './placeShipDisplay.js';
 
 const game = (()=>{
 
+    const displayWrap = document.querySelector(".display-wrap");
+    let currentPage = null;
+    const computerPlayer = Computer();
+    const player = Player("Test Name");
+
     function gameSetup(){
-        const computerPlayer = Computer();
         computerPlayer.placeAllShips();
-        const player = Player("Test Name");
         player.gameboard.receiveAttack([0,0]);
         placeShipDisplay.renderPlaceShip(player.gameboard);
+        currentPage = placeShipDisplay;
         //displayControl.render(player.gameboard, computerPlayer.gameboard);
     }
 
-    return {gameSetup}
+    function clearPage(){
+        displayWrap.innerHTML = '';
+    }
+
+    function switchPage(){
+        if(currentPage == placeShipDisplay){
+            clearPage();
+            displayControl.render(player.gameboard, computerPlayer.gameboard);
+            currentPage = displayControl;
+        }
+    }
+
+    return {gameSetup, switchPage}
 })()
 
 game.gameSetup();

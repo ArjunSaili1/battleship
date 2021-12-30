@@ -2,19 +2,16 @@ import { arrayExpression } from "@babel/types";
 
 const displayControl = (()=>{
 
-    let grids = [];
     const displayWrap = document.querySelector(".display-wrap");
+    let grids = [];
 
     function render(playerGameboard, computerGameboard){
         generateGrids();
-        console.log(computerGameboard.getShips());
         renderGameboard(computerGameboard.getShips(), grids[1]);
         renderGameboard(playerGameboard.getShips(), grids[0]);
     }
 
     function renderGameboard(gameboardShips, gameboardGrid){
-        clearGameboards(gameboardGrid)
-        console.log("abc")
         let coordColour;
         for(let i=0; i < gameboardShips.length; i++){
             if(gameboardShips[i].ship.isSunk()){
@@ -26,6 +23,7 @@ const displayControl = (()=>{
                 }
                 else{
                     coordColour = 'blue';
+
                 };
                 for(let m = 0; m < gameboardGrid.children.length; m++){
                     if(gameboardGrid.children[m].dataset.xCoordinate == gameboardShips[i].coords[k][0] &&
@@ -44,13 +42,12 @@ const displayControl = (()=>{
         const playerGridContainer = document.createElement("div");
         playerGridContainer.classList.add("grid-container");
         playerGridContainer.id = "player-grid";
-        grids.push(playerGridContainer);
         const computerGridContainer = document.createElement("div");
         computerGridContainer.classList.add("grid-container");
         computerGridContainer.id = "computer-grid";
-        grids.push(computerGridContainer);
         gameboardFlex.appendChild(playerGridContainer);
         gameboardFlex.appendChild(computerGridContainer);
+        grids = [playerGridContainer, computerGridContainer];
         for(let i = 0; i < grids.length; i++){
             let xCoord = 0;
             let yCoord = 0;

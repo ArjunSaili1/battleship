@@ -1,4 +1,5 @@
 import { displayControl } from './displayControl.js';
+import { game } from './index.js';
 
 
 const placeShipDisplay = (()=>{
@@ -9,12 +10,10 @@ const placeShipDisplay = (()=>{
     let shipBtns;
     let mainGrid;
     const displayWrap = document.querySelector(".display-wrap");
-    let gameboard;
     let highlightElements = [];
 
 
     function renderPlaceShip(playerGameboard){
-        gameboard = playerGameboard;
         generateAxisSwitchBtn()
         displayControl.generateGrids();
         grids = document.querySelectorAll(".grid-container");
@@ -22,8 +21,8 @@ const placeShipDisplay = (()=>{
         mainGrid = grids[0];
         generateShipPlaceButtons();
         for(let i = 0; i < mainGrid.children.length; i++){
-            mainGrid.children[i].addEventListener("mouseleave", (e)=>{removeShipOutline(e)})
-            mainGrid.children[i].addEventListener("mouseover", (e)=>{displayShipOutline(e)})
+            mainGrid.children[i].addEventListener("mouseleave", (e)=>{removeShipOutline(playerGameboard, e)})
+            mainGrid.children[i].addEventListener("mouseover", (e)=>{displayShipOutline(playerGameboard, e)})
         }
     }
 
@@ -35,42 +34,42 @@ const placeShipDisplay = (()=>{
         }
     }
 
-    function placeShipDOM(e){
+    function placeShipDOM(playerGameboard, e){
         const parsedCoords = [parseInt(e.target.dataset.xCoordinate), parseInt(e.target.dataset.yCoordinate)];
-        if(!(gameboard.shipExists(parsedCoords, selectedShipBtn.dataset.size, orientationSelected))){
-            gameboard.placeShip(parsedCoords, selectedShipBtn.dataset.size, orientationSelected);
-            displayControl.renderGameboard(gameboard.getShips(), mainGrid);
-            switchShip()
+        if(!(playerGameboard.shipExists(parsedCoords, selectedShipBtn.dataset.size, orientationSelected))){
+            playerGameboard.placeShip(parsedCoords, selectedShipBtn.dataset.size, orientationSelected);
+            displayControl.renderGameboard(playerGameboard.getShips(), mainGrid);
+            switchShip(playerGameboard)
         }
-        console.log(gameboard.getShips());
     }
 
-    function switchShip(){
-        if(gameboard.getShips().length > 4){
-            selectedShipBtn.remove();
-            selectedShipBtn = null;
-        }
-        selectedShipBtn.remove();
-        if(shipBtns.indexOf(selectedShipBtn) == shipBtns.length - 1){
-            selectedShipBtn = shipBtns[0]
+    function switchShip(playerGameboard){
+        if(playerGameboard.getShips().length > 4){
+            game.switchPage();
         }
         else{
-            selectedShipBtn = shipBtns[shipBtns.indexOf(selectedShipBtn) + 1];
+            selectedShipBtn.remove();
+            if(shipBtns.indexOf(selectedShipBtn) == shipBtns.length - 1){
+                selectedShipBtn = shipBtns[0]
+            }
+            else{
+                selectedShipBtn = shipBtns[shipBtns.indexOf(selectedShipBtn) + 1];
+            }
         }
     }
 
-    function displayShipOutline(e){
+    function displayShipOutline(playerGameboard, e){
         const size = parseInt(selectedShipBtn.dataset.size);
         let validPlacement = false;
         const placementCoords = [parseInt(e.target.dataset.xCoordinate), parseInt(e.target.dataset.yCoordinate)]
-        const highlightCoords = (gameboard.getCoordinates(placementCoords, size, orientationSelected));
+        const highlightCoords = (playerGameboard.getCoordinates(placementCoords, size, orientationSelected));
         for(let i = 0; i < mainGrid.children.length; i++){
             for(let k = 0; k < highlightCoords.length; k++){
                 if(mainGrid.children[i].dataset.xCoordinate == highlightCoords[k][0]
                     && mainGrid.children[i].dataset.yCoordinate == highlightCoords[k][1] &&
                     mainGrid.children[i].style.backgroundColor !== "blue"){
-                        if(gameboard.isValidPlacement(placementCoords, size, orientationSelected) && 
-                        !(gameboard.shipExists(placementCoords, size, orientationSelected))){
+                        if(playerGameboard.isValidPlacement(placementCoords, size, orientationSelected) && 
+                        !(playerGameboard.shipExists(placementCoords, size, orientationSelected))){
                             validPlacement = true;
                             mainGrid.children[i].style.backgroundColor = "green";
                         }
@@ -83,7 +82,7 @@ const placeShipDisplay = (()=>{
             }
         }
         if(validPlacement){
-            e.target.addEventListener("click", (e)=>{placeShipDOM(e)});
+            e.target.addEventListener("click", (e)=>{placeShipDOM(playerGameboard, e)});
         }
     }
 
@@ -133,7 +132,6 @@ const placeShipDisplay = (()=>{
             shipBtn.type = 'radio';
             shipButtonCtn.appendChild(shipBtn)
             shipBtn.addEventListener("click", (e)=>{selectShip(e)
-            console.log(selectedShipBtn);
             });
         });
         carrierBtn.click();
