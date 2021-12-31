@@ -38,7 +38,7 @@ const placeShipDisplay = (()=>{
         const parsedCoords = [parseInt(e.target.dataset.xCoordinate), parseInt(e.target.dataset.yCoordinate)];
         if(!(playerGameboard.shipExists(parsedCoords, selectedShipBtn.dataset.size, orientationSelected))){
             playerGameboard.placeShip(parsedCoords, selectedShipBtn.dataset.size, orientationSelected);
-            displayControl.renderGameboard(playerGameboard.getShips(), mainGrid);
+            displayControl.renderGameboard(playerGameboard.getShips(), mainGrid, false);
             switchShip(playerGameboard)
         }
     }

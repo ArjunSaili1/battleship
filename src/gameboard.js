@@ -49,9 +49,17 @@ const Gameboard = (()=> {
         return shipCoordinates;
     }
 
-    function getMissedShots(){return missedShots}
+    function isShotMissed(attackCoords){
+        for(let i = 0; i < missedShots.length; i++){
+            if(missedShots[i][0] == attackCoords[0] && missedShots[i][1] == attackCoords[1]){
+                return true;
+            }
+        }
+        return false;
+    }
 
     function receiveAttack(targetCoords){
+        console.log(targetCoords);
         let hit;
         ships.forEach(shipElement => {
             for(let i = 0; i < shipElement.coords.length; i++){
@@ -97,6 +105,10 @@ const Gameboard = (()=> {
         return false;
     }
 
+    function getMissedShots(){
+        return missedShots;
+    }
+
     function shipExists(placementCoordinates, length, orientation){
         for(let i = 0; i < length; i++){
             if(orientation == "horizontal"){
@@ -113,7 +125,7 @@ const Gameboard = (()=> {
         return false;
     }
 
-    return {placeShip, receiveAttack, getShips, allSunk, getMissedShots, isValidPlacement, getSunkShips, getCoordinates, shipExists}
+    return {placeShip, getMissedShots, receiveAttack, getShips, allSunk, isShotMissed, isValidPlacement, getSunkShips, getCoordinates, shipExists}
 })
 
 export {Gameboard}
