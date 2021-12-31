@@ -11,7 +11,6 @@ const displayControl = (()=>{
         generateGrids();
         renderGameboard(playerGameboard.getShips(), grids[0], false);
         bindAttackEvents();
-        playerGameboard.receiveAttack([0,0]);
         renderGameboard(playerGameboard.getShips(), grids[0], false);
 
     }
