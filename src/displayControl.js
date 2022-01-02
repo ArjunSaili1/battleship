@@ -25,7 +25,7 @@ const displayControl = (()=>{
                 if(gameboardShips[i].ship.getShipArray()[k].isHit && !(gameboardShips[i].ship.isSunk())){
                     coordColour = 'red';
                 }
-                else if(!isComputer){
+                else if(!isComputer && !(gameboardShips[i].ship.isSunk())){
                     coordColour = 'blue';
                 }
                 for(let m = 0; m < gameboardGrid.children.length; m++){
