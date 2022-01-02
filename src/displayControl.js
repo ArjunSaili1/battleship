@@ -77,22 +77,18 @@ const displayControl = (()=>{
     }
 
     function bindAttackEvents(){
-        console.log(grids);
+        console.log(allShotsOnBoard);
         for(let i = 0; i < grids[1].children.length; i++){
-            if(allShotsOnBoard.length > 0){
-                for(let j = 0; j < allShotsOnBoard.length; j++){
-                    const coords = [grids[1].children[i].dataset.xCoordinate, grids[1].children[i].dataset.yCoordinate];
-                    if(!(allShotsOnBoard[j][0] == coords[0] && allShotsOnBoard[j][1] == coords[1])){
-                        grids[1].children[i].addEventListener("mouseover", setHighlightColor);
-                        grids[1].children[i].addEventListener("mouseleave", removeHighlightColor);
-                        grids[1].children[i].addEventListener("click", displayAttack);
-                    }
+            grids[1].children[i].addEventListener("mouseover", setHighlightColor);
+            grids[1].children[i].addEventListener("mouseleave", removeHighlightColor);
+            grids[1].children[i].addEventListener("click", displayAttack);
+            for(let j = 0; j < allShotsOnBoard.length; j++){
+                const coords = [grids[1].children[i].dataset.xCoordinate, grids[1].children[i].dataset.yCoordinate];
+                if(allShotsOnBoard[j][0] == coords[0] && allShotsOnBoard[j][1] == coords[1]){
+                    grids[1].children[i].removeEventListener("mouseover", setHighlightColor);
+                    grids[1].children[i].removeEventListener("mouseleave", removeHighlightColor);
+                    grids[1].children[i].removeEventListener("click", displayAttack);
                 }
-            }
-            else{
-                grids[1].children[i].addEventListener("mouseover", setHighlightColor);
-                grids[1].children[i].addEventListener("mouseleave", removeHighlightColor);
-                grids[1].children[i].addEventListener("click", displayAttack);
             }
         }
     }
