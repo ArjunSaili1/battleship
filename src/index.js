@@ -18,10 +18,6 @@ const game = (()=>{
         //displayControl.render(player.gameboard, computerPlayer.gameboard);
     }
 
-    function playerTurn(){
-        displayControl.bindAttackEvents();
-    }
-
     function computerTurn(){}
 
     function playerRegisterHit(attackCoords){
@@ -41,7 +37,7 @@ const game = (()=>{
             clearPage();
             displayControl.render(player.gameboard, computerPlayer.gameboard);
             currentPage = displayControl;
-            playerTurn();
+            displayControl.bindAttackEvents();
         }
     }
 
