@@ -31,16 +31,28 @@ const game = (()=>{
     }
 
     function registerHit(attackCoords){
-        if(attackCoords){
-            currentPlayer.attack(attackCoords);
+        if(computerPlayer.gameboard.allSunk()){
+            console.log("hello")
+            clearPage();
         }
+        // if(player.gameboard.allSunk() || computerPlayer.gameboard.allSunk()){
+        //     clearPage();
+        // }
         else{
-            currentPlayer.attack();
+            if(attackCoords){
+                currentPlayer.attack(attackCoords);
+            }
+            else{
+                currentPlayer.attack();
+            }
+            switchPlayer();
         }
-        switchPlayer();
     }
 
     function switchPlayer(){
+        if(computerPlayer.gameboard.allSunk() || player.gameboard.allSunk()){
+            clearPage();
+        }
         if(currentPlayer == player){
             currentPlayer = computerPlayer;
             computerTurn();
