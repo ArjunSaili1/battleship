@@ -1,5 +1,5 @@
-import { displayControl } from './displayControl.js';
-import { game } from './index.js';
+import { displayControl } from './attackPage.js';
+import { game } from '../index.js';
 
 
 const placeShipDisplay = (()=>{

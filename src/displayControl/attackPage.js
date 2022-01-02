@@ -1,5 +1,5 @@
 import { arrayExpression } from "@babel/types";
-import { game } from ".";
+import { game } from "..";
 
 const displayControl = (()=>{
 
