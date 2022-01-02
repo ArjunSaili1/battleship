@@ -77,7 +77,6 @@ const displayControl = (()=>{
     }
 
     function bindAttackEvents(){
-        console.log(allShotsOnBoard);
         for(let i = 0; i < grids[1].children.length; i++){
             grids[1].children[i].addEventListener("mouseover", setHighlightColor);
             grids[1].children[i].addEventListener("mouseleave", removeHighlightColor);

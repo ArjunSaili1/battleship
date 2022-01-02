@@ -59,7 +59,6 @@ const Gameboard = (()=> {
     }
 
     function receiveAttack(targetCoords){
-        console.log(targetCoords);
         let hit;
         ships.forEach(shipElement => {
             for(let i = 0; i < shipElement.coords.length; i++){

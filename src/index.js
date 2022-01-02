@@ -31,7 +31,6 @@ const game = (()=>{
     }
 
     function playerRegisterHit(attackCoords){
-        console.log(currentPlayer)
         if(attackCoords){
             currentPlayer.attack(attackCoords);
         }
