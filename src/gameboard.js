@@ -84,11 +84,11 @@ const Gameboard = (()=> {
     }
 
     function allSunk(){
-        ships.forEach(shipElement => {
-            if(!shipElement.ship.isSunk()){
+        for(let i = 0; i < ships.length; i++){
+            if(!ships[i].ship.isSunk()){
                 return false;
             }
-        })
+        }
         return true;
     }
 
