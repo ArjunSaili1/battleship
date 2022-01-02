@@ -33,6 +33,10 @@ const game = (()=>{
         return true;
     }
 
+    function switchPlayer(){
+
+    }
+
     function clearPage(){
         displayWrap.innerHTML = '';
     }

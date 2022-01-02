@@ -71,17 +71,33 @@ const displayControl = (()=>{
 
     function bindAttackEvents(){
         for(let i = 0; i < grids[1].children.length; i++){
-            grids[1].children[i].addEventListener("mouseover", (e)=>{if(!e.target.style.backgroundColor ||
-                e.target.style.backgroundColor == "unset"){
-                e.target.style.backgroundColor = "rgb(227, 227, 227)";
-            }});
-            grids[1].children[i].addEventListener("mouseleave", (e)=>{if(e.target.style.backgroundColor == "rgb(227, 227, 227)"){
-                e.target.style.backgroundColor = "unset";
-            }});
-            grids[1].children[i].addEventListener("click", (e)=>{displayAttack(e)})
+            grids[1].children[i].addEventListener("mouseover", setHighlightColor);
+            grids[1].children[i].addEventListener("mouseleave", removeHighlightColor);
+            grids[1].children[i].addEventListener("click", displayAttack);
         }
     }
  
+    function setHighlightColor(e){
+        if(!e.target.style.backgroundColor ||
+            e.target.style.backgroundColor == "unset"){
+            e.target.style.backgroundColor = "rgb(227, 227, 227)";
+        }
+    }
+
+    function removeHighlightColor(e){
+        if(e.target.style.backgroundColor == "rgb(227, 227, 227)"){
+            e.target.style.backgroundColor = "unset";
+        }
+    }
+
+    function unbindAttackEvents(){
+        for(let i = 0; i < grids[1].children.length; i++){
+            grids[1].children[i].removeEventListener("mouseover", setHighlightColor);
+            grids[1].children[i].removeEventListener("mouseleave", removeHighlightColor);
+            grids[1].children[i].removeEventListener("click", displayAttack);
+        }
+    }
+
     function displayAttack(e){
         console.log("click")
         e.target.removeEventListener("click", (e)=>{displayAttack(e)});
@@ -93,6 +109,7 @@ const displayControl = (()=>{
         else{
             renderGameboard(players[1].getShips(), grids[1], true);
         }
+        unbindAttackEvents();
     }
 
     return {render, renderGameboard, generateGrids, bindAttackEvents}
