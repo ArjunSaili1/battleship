@@ -1,8 +1,8 @@
 import { ShipFactory } from './shipFactory.js';
 import { Gameboard } from './gameboard'
 import { Player, Computer} from './player'
-import { displayControl } from './displayControl.js';
-import { placeShipDisplay } from './placeShipDisplay.js';
+import { displayControl } from './displayControl/attackPage.js';
+import { placeShipDisplay } from './displayControl/placeShipDisplay.js';
 
 const game = (()=>{
 
