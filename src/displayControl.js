@@ -6,6 +6,7 @@ const displayControl = (()=>{
     const displayWrap = document.querySelector(".display-wrap");
     let grids = [];
     let players = [];
+    const allShotsOnBoard = [];
 
     function render(playerGameboard, computerGameboard){
         players = [playerGameboard, computerGameboard];
@@ -78,9 +79,21 @@ const displayControl = (()=>{
     function bindAttackEvents(){
         console.log(grids);
         for(let i = 0; i < grids[1].children.length; i++){
-            grids[1].children[i].addEventListener("mouseover", setHighlightColor);
-            grids[1].children[i].addEventListener("mouseleave", removeHighlightColor);
-            grids[1].children[i].addEventListener("click", displayAttack);
+            if(allShotsOnBoard.length > 0){
+                for(let j = 0; j < allShotsOnBoard.length; j++){
+                    const coords = [grids[1].children[i].dataset.xCoordinate, grids[1].children[i].dataset.yCoordinate];
+                    if(!(allShotsOnBoard[j][0] == coords[0] && allShotsOnBoard[j][1] == coords[1])){
+                        grids[1].children[i].addEventListener("mouseover", setHighlightColor);
+                        grids[1].children[i].addEventListener("mouseleave", removeHighlightColor);
+                        grids[1].children[i].addEventListener("click", displayAttack);
+                    }
+                }
+            }
+            else{
+                grids[1].children[i].addEventListener("mouseover", setHighlightColor);
+                grids[1].children[i].addEventListener("mouseleave", removeHighlightColor);
+                grids[1].children[i].addEventListener("click", displayAttack);
+            }
         }
     }
  
@@ -106,6 +119,7 @@ const displayControl = (()=>{
     }
 
     function displayAttack(e){
+        allShotsOnBoard.push([e.target.dataset.xCoordinate, e.target.dataset.yCoordinate]);
         const attackCoords = [parseInt(e.target.dataset.xCoordinate), parseInt(e.target.dataset.yCoordinate)];
         game.playerRegisterHit(attackCoords);
         renderGameboard(players[1], grids[1], true);
