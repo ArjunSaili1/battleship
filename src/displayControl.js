@@ -110,7 +110,7 @@ const displayControl = (()=>{
         renderGameboard(players[1], grids[1], true);
     }
 
-    return {render, renderGameboard, generateGrids, bindAttackEvents}
+    return {render, renderGameboard, generateGrids, bindAttackEvents, unbindAttackEvents}
 })()
 
 export {displayControl}

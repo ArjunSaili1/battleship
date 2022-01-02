@@ -10,22 +10,31 @@ const game = (()=>{
     let currentPage = null;
     const computerPlayer = Computer();
     const player = Player("Test Name");
+    let currentPlayer;
 
     function gameSetup(){
         computerPlayer.placeAllShips();
         placeShipDisplay.renderPlaceShip(player.gameboard);
         currentPage = placeShipDisplay;
+        currentPlayer = player;
         //displayControl.render(player.gameboard, computerPlayer.gameboard);
     }
 
     function computerTurn(){}
 
     function playerRegisterHit(attackCoords){
-        computerPlayer.gameboard.receiveAttack(attackCoords);
+        console.log(currentPlayer)
+        if(currentPlayer == player){
+            computerPlayer.gameboard.receiveAttack(attackCoords);
+        }
+        switchPlayer();
     }
 
     function switchPlayer(){
-
+        if(currentPlayer == player){
+            currentPlayer = computerPlayer;
+            displayControl.unbindAttackEvents();
+        }
     }
 
     function clearPage(){
