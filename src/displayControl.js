@@ -116,7 +116,7 @@ const displayControl = (()=>{
     function displayAttack(e){
         allShotsOnBoard.push([e.target.dataset.xCoordinate, e.target.dataset.yCoordinate]);
         const attackCoords = [parseInt(e.target.dataset.xCoordinate), parseInt(e.target.dataset.yCoordinate)];
-        game.playerRegisterHit(attackCoords);
+        game.registerHit(attackCoords);
         renderGameboard(players[1], grids[1], true);
     }
 

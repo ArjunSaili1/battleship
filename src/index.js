@@ -30,7 +30,7 @@ const game = (()=>{
         switchPlayer();
     }
 
-    function playerRegisterHit(attackCoords){
+    function registerHit(attackCoords){
         if(attackCoords){
             currentPlayer.attack(attackCoords);
         }
@@ -64,7 +64,7 @@ const game = (()=>{
         }
     }
 
-    return {gameSetup, switchPage, playerRegisterHit}
+    return {gameSetup, switchPage, registerHit}
 })()
 
 game.gameSetup();
