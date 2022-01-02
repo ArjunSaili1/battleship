@@ -105,8 +105,6 @@ const displayControl = (()=>{
     }
 
     function displayAttack(e){
-        console.log("click")
-        e.target.removeEventListener("click", (e)=>{displayAttack(e)});
         const attackCoords = [parseInt(e.target.dataset.xCoordinate), parseInt(e.target.dataset.yCoordinate)];
         game.playerRegisterHit(attackCoords);
         renderGameboard(players[1], grids[1], true);

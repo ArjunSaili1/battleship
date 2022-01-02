@@ -26,10 +26,6 @@ const game = (()=>{
 
     function playerRegisterHit(attackCoords){
         computerPlayer.gameboard.receiveAttack(attackCoords);
-        if(computerPlayer.gameboard.isShotMissed(attackCoords)){
-            return false;
-        }
-        return true;
     }
 
     function switchPlayer(){
