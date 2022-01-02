@@ -10,12 +10,12 @@ const displayControl = (()=>{
     function render(playerGameboard, computerGameboard){
         players = [playerGameboard, computerGameboard];
         generateGrids();
-        renderGameboard(playerGameboard.getShips(), grids[0], false);
-        renderGameboard(playerGameboard.getShips(), grids[0], false);
+        renderGameboard(playerGameboard, grids[0], false);
 
     }
 
-    function renderGameboard(gameboardShips, gameboardGrid, isComputer){
+    function renderGameboard(gameboard, gameboardGrid, isComputer){
+        const gameboardShips = gameboard.getShips();
         for(let i=0; i < gameboardShips.length; i++){
             for(let k = 0; k < gameboardShips[i].ship.getShipArray().length; k++){
                 let coordColour;
@@ -29,10 +29,16 @@ const displayControl = (()=>{
                     coordColour = 'blue';
                 }
                 for(let m = 0; m < gameboardGrid.children.length; m++){
+                    const coords = [parseInt(gameboardGrid.children[m].dataset.xCoordinate), 
+                    parseInt(gameboardGrid.children[m].dataset.yCoordinate)];
                     if(gameboardGrid.children[m].dataset.xCoordinate == gameboardShips[i].coords[k][0] &&
                         gameboardGrid.children[m].dataset.yCoordinate == gameboardShips[i].coords[k][1]){
                             gameboardGrid.children[m].style.backgroundColor = coordColour;
-                        };
+                        }
+
+                    else if(gameboard.isShotMissed(coords)){
+                        gameboardGrid.children[m].style.backgroundColor = "rgb(211,211,211)";
+                    }
                 }
             }
         }
@@ -103,13 +109,7 @@ const displayControl = (()=>{
         e.target.removeEventListener("click", (e)=>{displayAttack(e)});
         const attackCoords = [parseInt(e.target.dataset.xCoordinate), parseInt(e.target.dataset.yCoordinate)];
         game.playerRegisterHit(attackCoords);
-        if(!game.playerRegisterHit(attackCoords)){
-            e.target.style.backgroundColor = "rgb(211,211,211)";
-        }
-        else{
-            renderGameboard(players[1].getShips(), grids[1], true);
-        }
-        unbindAttackEvents();
+        renderGameboard(players[1], grids[1], true);
     }
 
     return {render, renderGameboard, generateGrids, bindAttackEvents}

@@ -13,7 +13,6 @@ const game = (()=>{
 
     function gameSetup(){
         computerPlayer.placeAllShips();
-        player.gameboard.receiveAttack([0,0]);
         placeShipDisplay.renderPlaceShip(player.gameboard);
         currentPage = placeShipDisplay;
         //displayControl.render(player.gameboard, computerPlayer.gameboard);
