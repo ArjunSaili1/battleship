@@ -13,6 +13,8 @@ const game = (()=>{
     let currentPlayer;
 
     function gameSetup(){
+        computerPlayer.setEnemyBoard(player.gameboard);
+        player.setEnemyBoard(computerPlayer.gameboard);
         computerPlayer.placeAllShips();
         placeShipDisplay.renderPlaceShip(player.gameboard);
         currentPage = placeShipDisplay;
@@ -20,12 +22,21 @@ const game = (()=>{
         //displayControl.render(player.gameboard, computerPlayer.gameboard);
     }
 
-    function computerTurn(){}
+    function computerTurn(){
+        displayControl.unbindAttackEvents();
+        currentPlayer.attack();
+        clearPage();
+        displayControl.render(player.gameboard, computerPlayer.gameboard);
+        switchPlayer();
+    }
 
     function playerRegisterHit(attackCoords){
         console.log(currentPlayer)
-        if(currentPlayer == player){
-            computerPlayer.gameboard.receiveAttack(attackCoords);
+        if(attackCoords){
+            currentPlayer.attack(attackCoords);
+        }
+        else{
+            currentPlayer.attack();
         }
         switchPlayer();
     }
@@ -33,7 +44,11 @@ const game = (()=>{
     function switchPlayer(){
         if(currentPlayer == player){
             currentPlayer = computerPlayer;
-            displayControl.unbindAttackEvents();
+            computerTurn();
+        }
+        else{
+            currentPlayer = player;
+            displayControl.bindAttackEvents();
         }
     }
 
