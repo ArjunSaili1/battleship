@@ -19,6 +19,20 @@ const game = (()=>{
         //displayControl.render(player.gameboard, computerPlayer.gameboard);
     }
 
+    function playerTurn(){
+        displayControl.bindAttackEvents();
+    }
+
+    function computerTurn(){}
+
+    function playerRegisterHit(attackCoords){
+        computerPlayer.gameboard.receiveAttack(attackCoords);
+        if(computerPlayer.gameboard.isShotMissed(attackCoords)){
+            return false;
+        }
+        return true;
+    }
+
     function clearPage(){
         displayWrap.innerHTML = '';
     }
@@ -28,10 +42,11 @@ const game = (()=>{
             clearPage();
             displayControl.render(player.gameboard, computerPlayer.gameboard);
             currentPage = displayControl;
+            playerTurn();
         }
     }
 
-    return {gameSetup, switchPage}
+    return {gameSetup, switchPage, playerRegisterHit}
 })()
 
 game.gameSetup();

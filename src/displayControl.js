@@ -1,4 +1,5 @@
 import { arrayExpression } from "@babel/types";
+import { game } from ".";
 
 const displayControl = (()=>{
 
@@ -10,7 +11,6 @@ const displayControl = (()=>{
         players = [playerGameboard, computerGameboard];
         generateGrids();
         renderGameboard(playerGameboard.getShips(), grids[0], false);
-        bindAttackEvents();
         renderGameboard(playerGameboard.getShips(), grids[0], false);
 
     }
@@ -78,16 +78,16 @@ const displayControl = (()=>{
             grids[1].children[i].addEventListener("mouseleave", (e)=>{if(e.target.style.backgroundColor == "rgb(227, 227, 227)"){
                 e.target.style.backgroundColor = "unset";
             }});
-            grids[1].children[i].addEventListener("click", (e)=>{registerHit(e)})
+            grids[1].children[i].addEventListener("click", (e)=>{displayAttack(e)})
         }
     }
  
-    function registerHit(e){
+    function displayAttack(e){
         console.log("click")
-        e.target.removeEventListener("click", (e)=>{registerHit(e)});
-        const attackCoords = [parseInt(e.target.dataset.xCoordinate), parseInt(e.target.dataset.yCoordinate)]
-        players[1].receiveAttack(attackCoords);
-        if(players[1].isShotMissed(attackCoords)){
+        e.target.removeEventListener("click", (e)=>{displayAttack(e)});
+        const attackCoords = [parseInt(e.target.dataset.xCoordinate), parseInt(e.target.dataset.yCoordinate)];
+        game.playerRegisterHit(attackCoords);
+        if(!game.playerRegisterHit(attackCoords)){
             e.target.style.backgroundColor = "rgb(211,211,211)";
         }
         else{
@@ -95,7 +95,7 @@ const displayControl = (()=>{
         }
     }
 
-    return {render, renderGameboard, generateGrids}
+    return {render, renderGameboard, generateGrids, bindAttackEvents}
 })()
 
 export {displayControl}
