@@ -1,6 +1,7 @@
 import {Player, Computer} from './player';
 import {displayControl} from './displayControl/attackPage';
 import {placeShipDisplay} from './displayControl/placeShipDisplay';
+import { popUps } from './displayControl/popUps';
 
 const game = (() => {
 
@@ -15,6 +16,7 @@ const game = (() => {
     player.setEnemyBoard(computerPlayer.gameboard);
     computerPlayer.placeAllShips();
     placeShipDisplay.renderPlaceShip(player.gameboard);
+    popUps.createStartPopUp();
     currentPage = placeShipDisplay;
     currentPlayer = player;
   }

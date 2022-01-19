@@ -2,7 +2,6 @@ import {game} from '../index';
 
 import {displayControl} from './attackPage';
 
-
 const placeShipDisplay = (() => {
 
   let selectedShipBtn;
