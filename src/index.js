@@ -1,5 +1,3 @@
-import { ShipFactory } from './shipFactory.js';
-import { Gameboard } from './gameboard'
 import { Player, Computer} from './player'
 import { displayControl } from './displayControl/attackPage.js';
 import { placeShipDisplay } from './displayControl/placeShipDisplay.js';
@@ -19,7 +17,6 @@ const game = (()=>{
         placeShipDisplay.renderPlaceShip(player.gameboard);
         currentPage = placeShipDisplay;
         currentPlayer = player;
-        //displayControl.render(player.gameboard, computerPlayer.gameboard);
     }
 
     function computerTurn(){
@@ -35,9 +32,6 @@ const game = (()=>{
             console.log("hello")
             clearPage();
         }
-        // if(player.gameboard.allSunk() || computerPlayer.gameboard.allSunk()){
-        //     clearPage();
-        // }
         else{
             if(attackCoords){
                 currentPlayer.attack(attackCoords);
