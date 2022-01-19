@@ -6,7 +6,7 @@ const ShipFactory = ((length) => {
   function isSunk() {
     let sunk = true;
     for (let i = 0; i < ShipArray.length; i++) {
-      if (ShipArray[i].isHit == false) {
+      if (ShipArray[i].isHit === false) {
         sunk = false;
       }
     }
@@ -27,7 +27,7 @@ const ShipFactory = ((length) => {
 
   function hit(hitPosition) {
     for (let i = 0; i <= ShipArray.length; i++) {
-      if (i == hitPosition) {
+      if (i === hitPosition) {
         ShipArray[i].isHit = true;
       }
     }

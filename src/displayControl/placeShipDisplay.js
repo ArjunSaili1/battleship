@@ -1,6 +1,6 @@
-import {game} from '../index.js';
+import {game} from '../index';
 
-import {displayControl} from './attackPage.js';
+import {displayControl} from './attackPage';
 
 
 const placeShipDisplay = (() => {
@@ -22,21 +22,21 @@ const placeShipDisplay = (() => {
     mainGrid = grids[0];
     generateShipPlaceButtons();
     for (let i = 0; i < mainGrid.children.length; i++) {
-      mainGrid.children[i].addEventListener("mouseleave", (e) => { removeShipOutline(playerGameboard, e); });
-      mainGrid.children[i].addEventListener("mouseover", (e) => { displayShipOutline(playerGameboard, e); });
+      mainGrid.children[i].addEventListener("mouseleave", (event) => { removeShipOutline(playerGameboard, event); });
+      mainGrid.children[i].addEventListener("mouseover", (event) => { displayShipOutline(playerGameboard, event); });
     }
   }
 
-  function removeShipOutline(e) {
+  function removeShipOutline() {
     for (let i = 0; i < highlightElements.length; i++) {
-      if (highlightElements[i].style.backgroundColor == "green" || highlightElements[i].style.backgroundColor == "red") {
+      if (highlightElements[i].style.backgroundColor === "green" || highlightElements[i].style.backgroundColor === "red") {
         highlightElements[i].style.backgroundColor = "unset";
       }
     }
   }
 
-  function placeShipDOM(playerGameboard, e) {
-    const parsedCoords = [parseInt(e.target.dataset.xCoordinate), parseInt(e.target.dataset.yCoordinate)];
+  function placeShipDOM(playerGameboard, event) {
+    const parsedCoords = [parseInt(event.target.dataset.xCoordinate, 10), parseInt(event.target.dataset.yCoordinate, 10)];
     if (!(playerGameboard.shipExists(parsedCoords, selectedShipBtn.dataset.size, orientationSelected))) {
       playerGameboard.placeShip(parsedCoords, selectedShipBtn.dataset.size, orientationSelected);
       displayControl.renderGameboard(playerGameboard, mainGrid, false);
@@ -49,7 +49,7 @@ const placeShipDisplay = (() => {
       game.switchPage();
     } else {
       selectedShipBtn.remove();
-      if (shipBtns.indexOf(selectedShipBtn) == shipBtns.length - 1) {
+      if (shipBtns.indexOf(selectedShipBtn) === shipBtns.length - 1) {
         selectedShipBtn = shipBtns[0];
       } else {
         selectedShipBtn = shipBtns[shipBtns.indexOf(selectedShipBtn) + 1];
@@ -57,15 +57,15 @@ const placeShipDisplay = (() => {
     }
   }
 
-  function displayShipOutline(playerGameboard, e) {
-    const size = parseInt(selectedShipBtn.dataset.size);
+  function displayShipOutline(playerGameboard, event) {
+    const size = parseInt(selectedShipBtn.dataset.size, 10);
     let validPlacement = false;
-    const placementCoords = [parseInt(e.target.dataset.xCoordinate), parseInt(e.target.dataset.yCoordinate)];
+    const placementCoords = [parseInt(event.target.dataset.xCoordinate, 10), parseInt(event.target.dataset.yCoordinate, 10)];
     const highlightCoords = (playerGameboard.getCoordinates(placementCoords, size, orientationSelected));
     for (let i = 0; i < mainGrid.children.length; i++) {
-      for (let k = 0; k < highlightCoords.length; k++) {
-        if (mainGrid.children[i].dataset.xCoordinate == highlightCoords[k][0] &&
-                    mainGrid.children[i].dataset.yCoordinate == highlightCoords[k][1] &&
+      for (let hCoord = 0; hCoord < highlightCoords.length; hCoord++) {
+        if (mainGrid.children[i].dataset.xCoordinate === highlightCoords[hCoord][0].toString() &&
+                    mainGrid.children[i].dataset.yCoordinate === highlightCoords[hCoord][1].toString() &&
                     mainGrid.children[i].style.backgroundColor !== "blue") {
           if (playerGameboard.isValidPlacement(placementCoords, size, orientationSelected) &&
                         !(playerGameboard.shipExists(placementCoords, size, orientationSelected))) {
@@ -80,7 +80,7 @@ const placeShipDisplay = (() => {
       }
     }
     if (validPlacement) {
-      e.target.addEventListener("click", (e) => { placeShipDOM(playerGameboard, e); });
+      event.target.addEventListener("click", (clickEvent) => { placeShipDOM(playerGameboard, clickEvent); });
     }
   }
 
@@ -90,13 +90,14 @@ const placeShipDisplay = (() => {
     const changeAxisBtn = document.createElement("button");
     changeAxisBtn.classList.add('change-axis-button');
     changeAxisBtn.textContent = "Horizontal";
-    changeAxisBtn.addEventListener("click", (e) => {
-      if (orientationSelected == "horizontal") {
+    changeAxisBtn.addEventListener("click", (event) => {
+      const button = event.target;
+      if (orientationSelected === "horizontal") {
         orientationSelected = "vertical";
-        e.target.textContent = "Vertical";
+        button.textContent = "Vertical";
       } else {
         orientationSelected = "horizontal";
-        e.target.textContent = "Horizontal";
+        button.textContent = "Horizontal";
       }
     });
     changeAxisCtn.appendChild(changeAxisBtn);
@@ -128,16 +129,16 @@ const placeShipDisplay = (() => {
     shipBtns.forEach((shipBtn) => {
       shipBtn.type = 'radio';
       shipButtonCtn.appendChild(shipBtn);
-      shipBtn.addEventListener("click", (e) => {
-        selectShip(e);
+      shipBtn.addEventListener("click", (event) => {
+        selectShip(event);
       });
     });
     carrierBtn.click();
     displayWrap.appendChild(placeShipCtn);
   }
 
-  function selectShip(e) {
-    selectedShipBtn = e.target;
+  function selectShip(event) {
+    selectedShipBtn = event.target;
   }
 
   return {renderPlaceShip};

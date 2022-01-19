@@ -24,14 +24,15 @@ const Computer = (() => {
 
   function alreadyShot(coordinates) {
     for (let i = 0; i < allShots.length; i++) {
-      if (allShots[i][0] == coordinates[0] && allShots[i][1] == coordinates[1]) {
+      if (allShots[i][0] === coordinates[0] && allShots[i][1] === coordinates[1]) {
         return true;
       }
     }
+    return false;
   }
 
   function generateRandomOrientation() {
-    if (Math.round(Math.random()) == 0) {
+    if (Math.round(Math.random()) === 0) {
       return "horizontal";
     }
     return "vertical";
@@ -42,7 +43,7 @@ const Computer = (() => {
     let foundShip = false;
     let randomCoord;
     let randomOrient;
-    while (foundShip == false) {
+    while (foundShip === false) {
       randomCoord = generateRandomCoordinates();
       randomOrient = generateRandomOrientation();
       if (computerPlayer.gameboard.isValidPlacement(randomCoord, length, randomOrient) === true &&
@@ -54,17 +55,15 @@ const Computer = (() => {
   }
 
   function placeAllShips() {
-    const carrier = placeShip(5);
-    const battleship = placeShip(4);
-    const submarine = placeShip(3);
-    const cruiser = placeShip(3);
-    const destroyer = placeShip(2);
+    placeShip(5);
+    placeShip(4);
+    placeShip(3);
+    placeShip(3);
+    placeShip(2);
   }
 
   function generateRandomCoordinates() {
-    let coordinates;
-    coordinates = [Math.floor(Math.random() * 10), Math.floor(Math.random() * 10)];
-    return coordinates;
+    return [Math.floor(Math.random() * 10), Math.floor(Math.random() * 10)];
   }
 
   function attack() {

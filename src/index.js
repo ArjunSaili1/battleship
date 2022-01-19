@@ -1,6 +1,6 @@
 import {Player, Computer} from './player';
-import {displayControl} from './displayControl/attackPage.js';
-import {placeShipDisplay} from './displayControl/placeShipDisplay.js';
+import {displayControl} from './displayControl/attackPage';
+import {placeShipDisplay} from './displayControl/placeShipDisplay';
 
 const game = (() => {
 
@@ -29,7 +29,6 @@ const game = (() => {
 
   function registerHit(attackCoords) {
     if (computerPlayer.gameboard.allSunk()) {
-      console.log("hello");
       clearPage();
     } else {
       if (attackCoords) {
@@ -45,7 +44,7 @@ const game = (() => {
     if (computerPlayer.gameboard.allSunk() || player.gameboard.allSunk()) {
       clearPage();
     }
-    if (currentPlayer == player) {
+    if (currentPlayer === player) {
       currentPlayer = computerPlayer;
       computerTurn();
     } else {
@@ -59,12 +58,11 @@ const game = (() => {
   }
 
   function switchPage() {
-    if (currentPage == placeShipDisplay) {
-      clearPage();
-      displayControl.render(player.gameboard, computerPlayer.gameboard);
-      currentPage = displayControl;
-      displayControl.bindAttackEvents();
-    }
+    if (!currentPage === placeShipDisplay) { return; }
+    clearPage();
+    displayControl.render(player.gameboard, computerPlayer.gameboard);
+    currentPage = displayControl;
+    displayControl.bindAttackEvents();
   }
 
   return {gameSetup, switchPage, registerHit};

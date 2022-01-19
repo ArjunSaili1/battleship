@@ -17,24 +17,24 @@ const displayControl = (() => {
   function renderGameboard(gameboard, gameboardGrid, isComputer) {
     const gameboardShips = gameboard.getShips();
     for (let i = 0; i < gameboardShips.length; i++) {
-      for (let k = 0; k < gameboardShips[i].ship.getShipArray().length; k++) {
+      for (let shipNode = 0; shipNode < gameboardShips[i].ship.getShipArray().length; shipNode++) {
         let coordColour;
         if (gameboardShips[i].ship.isSunk()) {
           coordColour = 'rgb(44,44,44)';
         }
-        if (gameboardShips[i].ship.getShipArray()[k].isHit && !(gameboardShips[i].ship.isSunk())) {
+        if (gameboardShips[i].ship.getShipArray()[shipNode].isHit && !(gameboardShips[i].ship.isSunk())) {
           coordColour = 'red';
         } else if (!isComputer && !(gameboardShips[i].ship.isSunk())) {
           coordColour = 'blue';
         }
-        for (let m = 0; m < gameboardGrid.children.length; m++) {
-          const coords = [parseInt(gameboardGrid.children[m].dataset.xCoordinate),
-            parseInt(gameboardGrid.children[m].dataset.yCoordinate)];
-          if (gameboardGrid.children[m].dataset.xCoordinate == gameboardShips[i].coords[k][0] &&
-                        gameboardGrid.children[m].dataset.yCoordinate == gameboardShips[i].coords[k][1]) {
-            gameboardGrid.children[m].style.backgroundColor = coordColour;
+        for (let coordSquare = 0; coordSquare < gameboardGrid.children.length; coordSquare++) {
+          const coords = [parseInt(gameboardGrid.children[coordSquare].dataset.xCoordinate, 10),
+            parseInt(gameboardGrid.children[coordSquare].dataset.yCoordinate, 10)];
+          if (gameboardGrid.children[coordSquare].dataset.xCoordinate === gameboardShips[i].coords[shipNode][0].toString() &&
+                        gameboardGrid.children[coordSquare].dataset.yCoordinate === gameboardShips[i].coords[shipNode][1].toString()) {
+            gameboardGrid.children[coordSquare].style.backgroundColor = coordColour;
           } else if (gameboard.isShotMissed(coords)) {
-            gameboardGrid.children[m].style.backgroundColor = "rgb(211,211,211)";
+            gameboardGrid.children[coordSquare].style.backgroundColor = "rgb(211,211,211)";
           }
         }
       }
@@ -60,7 +60,7 @@ const displayControl = (() => {
       for (let j = 0; j < 100; j++) {
         const newCoord = document.createElement("div");
         newCoord.classList.add("coordinate");
-        if (xCoord % 10 == 0 && xCoord !== 0) {
+        if (xCoord % 10 === 0 && xCoord !== 0) {
           xCoord = 0;
           yCoord++;
         }
@@ -79,7 +79,7 @@ const displayControl = (() => {
       grids[1].children[i].addEventListener("click", displayAttack);
       for (let j = 0; j < allShotsOnBoard.length; j++) {
         const coords = [grids[1].children[i].dataset.xCoordinate, grids[1].children[i].dataset.yCoordinate];
-        if (allShotsOnBoard[j][0] == coords[0] && allShotsOnBoard[j][1] == coords[1]) {
+        if (allShotsOnBoard[j][0] === coords[0] && allShotsOnBoard[j][1] === coords[1]) {
           grids[1].children[i].removeEventListener("mouseover", setHighlightColor);
           grids[1].children[i].removeEventListener("mouseleave", removeHighlightColor);
           grids[1].children[i].removeEventListener("click", displayAttack);
@@ -88,16 +88,16 @@ const displayControl = (() => {
     }
   }
 
-  function setHighlightColor(e) {
-    if (!e.target.style.backgroundColor ||
-            e.target.style.backgroundColor == "unset") {
-      e.target.style.backgroundColor = "rgb(227, 227, 227)";
+  function setHighlightColor(event) {
+    if (!event.target.style.backgroundColor ||
+            event.target.style.backgroundColor === "unset") {
+      event.target.style.backgroundColor = "rgb(227, 227, 227)";
     }
   }
 
-  function removeHighlightColor(e) {
-    if (e.target.style.backgroundColor == "rgb(227, 227, 227)") {
-      e.target.style.backgroundColor = "unset";
+  function removeHighlightColor(event) {
+    if (event.target.style.backgroundColor === "rgb(227, 227, 227)") {
+      event.target.style.backgroundColor = "unset";
     }
   }
 
@@ -109,9 +109,9 @@ const displayControl = (() => {
     }
   }
 
-  function displayAttack(e) {
-    allShotsOnBoard.push([e.target.dataset.xCoordinate, e.target.dataset.yCoordinate]);
-    const attackCoords = [parseInt(e.target.dataset.xCoordinate), parseInt(e.target.dataset.yCoordinate)];
+  function displayAttack(event) {
+    allShotsOnBoard.push([event.target.dataset.xCoordinate, event.target.dataset.yCoordinate]);
+    const attackCoords = [parseInt(event.target.dataset.xCoordinate, 10), parseInt(event.target.dataset.yCoordinate, 10)];
     game.registerHit(attackCoords);
     renderGameboard(players[1], grids[1], true);
   }
