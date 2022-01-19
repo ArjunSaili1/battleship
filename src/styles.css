@@ -29,12 +29,18 @@ body{
         grid-template-columns: repeat(10, 2.25rem) !important; 
         grid-template-rows: repeat(10, 2.25rem)  !important;
     }
+    .ship-buttons > *{
+        font-size: 15px !important;
+    }
 }
 
 @media only screen and (max-width: 370px) {
     .grid-container{
         grid-template-columns: repeat(10, 1.8rem) !important; 
         grid-template-rows: repeat(10, 1.8rem)  !important;
+    }
+    .pop-up{
+        width: 95vw !important;
     }
 }
 
@@ -83,10 +89,17 @@ body{
     align-items: center;
 }
 
+.ship-buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
 .ship-buttons > *{
+    display: inline;
     margin: 20px;
-    padding: 5px;
-    font-size: 30px;
+    font-size: 20px;
 }
 
 #content-container{
@@ -159,9 +172,17 @@ body{
 .play-btn-container{
     display: flex;
     justify-content: center;
-    margin: 20px;
+    margin: 20px 20px 0px 20px;
 }
 
 .play-btn{
-    font-size: 25px;
+    font-size: 20px;
+}
+
+button{
+    padding: 10px;
+    border-radius: 10px;
+    border-width: 1px;
+    cursor: pointer;
+    background-color: white;
 }
