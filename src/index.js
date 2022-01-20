@@ -26,7 +26,7 @@ const game = (() => {
     displayControl.unbindAttackEvents();
     currentPlayer.attack();
     clearPage();
-    mainElements.createLegend()
+    mainElements.createLegend();
     displayControl.render(player.gameboard, computerPlayer.gameboard);
     switchPlayer();
   }
@@ -45,11 +45,11 @@ const game = (() => {
   }
 
   function switchPlayer() {
-    if (computerPlayer.gameboard.allSunk()){
-      mainElements.createWinModal("player")
+    if (computerPlayer.gameboard.allSunk()) {
+      mainElements.createWinModal("player");
 
     }
-    if(player.gameboard.allSunk()) {
+    if (player.gameboard.allSunk()) {
       mainElements.createWinModal("computer");
     }
     if (currentPlayer === player) {

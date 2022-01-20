@@ -3,42 +3,42 @@ const mainElements = (() => {
 
   let currentPopUp;
   let infoText;
-  const displayWrap = document.querySelector(".display-wrap")
+  const displayWrap = document.querySelector(".display-wrap");
 
   function changeInfoText(textContent) {
     infoText.textContent = textContent;
   }
 
-  function createLegend(){
-      const legendContainer = document.createElement('div');
-      legendContainer.classList.add("legend-container");
-      const legend = document.createElement("div");
-      legend.classList.add("legend");
-      for(let i = 0; i < 6; i++){
-        const legendSquare = document.createElement('div');
-        legendSquare.classList.add("legend-square");
-        if(i == 0){
-            legendSquare.id = "legend-sunk-square";
-        }
-        if(i == 1){
-            legendSquare.textContent = "Sunk";
-        }
-        if(i == 2){
-            legendSquare.id = "legend-hit-square";
-        }
-        if(i == 3){
-            legendSquare.textContent = "Hit";
-        }
-        if(i == 4){
-            legendSquare.id = "legend-miss-square";
-        }
-        if(i == 5){
-            legendSquare.textContent = "Miss";
-        }
-        legend.appendChild(legendSquare);
+  function createLegend() {
+    const legendContainer = document.createElement('div');
+    legendContainer.classList.add("legend-container");
+    const legend = document.createElement("div");
+    legend.classList.add("legend");
+    for (let i = 0; i < 6; i++) {
+      const legendSquare = document.createElement('div');
+      legendSquare.classList.add("legend-square");
+      if (i === 0) {
+        legendSquare.id = "legend-sunk-square";
       }
-      legendContainer.appendChild(legend);
-      displayWrap.appendChild(legendContainer);
+      if (i === 1) {
+        legendSquare.textContent = "Sunk";
+      }
+      if (i === 2) {
+        legendSquare.id = "legend-hit-square";
+      }
+      if (i === 3) {
+        legendSquare.textContent = "Hit";
+      }
+      if (i === 4) {
+        legendSquare.id = "legend-miss-square";
+      }
+      if (i === 5) {
+        legendSquare.textContent = "Miss";
+      }
+      legend.appendChild(legendSquare);
+    }
+    legendContainer.appendChild(legend);
+    displayWrap.appendChild(legendContainer);
   }
 
   function createInfoText() {
@@ -113,22 +113,21 @@ const mainElements = (() => {
     currentPopUp.remove();
   }
 
-  function createWinModal(winner){
+  function createWinModal(winner) {
     const template = createPopUpTemplate();
     const winText = document.createElement("h2");
     winText.classList.add("win-text");
     const winSubText = document.createElement("h4");
     winSubText.classList.add("win-sub-text");
-    if(winner == "player"){
-        winText.textContent = "You win!";
-        winSubText.textContent = "You sunk all the computer's ships";
+    if (winner === "player") {
+      winText.textContent = "You win!";
+      winSubText.textContent = "You sunk all the computer's ships";
+    } else {
+      winText.textContent = "You lose";
+      winSubText.textContent = "The computer sunk all your ships";
     }
-    else{
-        winText.textContent = "You lose";
-        winSubText.textContent = "The computer sunk all your ships";
-    }
-    template.children[0].children[0].appendChild(winText)
-    template.children[0].children[0].appendChild(winSubText)
+    template.children[0].children[0].appendChild(winText);
+    template.children[0].children[0].appendChild(winSubText);
     document.body.appendChild(template);
   }
 

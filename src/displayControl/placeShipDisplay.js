@@ -89,8 +89,7 @@ const placeShipDisplay = (() => {
     const changeAxisBtn = document.createElement("button");
     changeAxisBtn.classList.add('change-axis-button');
     changeAxisBtn.textContent = "Change Axis";
-    changeAxisBtn.addEventListener("click", (event) => {
-      const button = event.target;
+    changeAxisBtn.addEventListener("click", () => {
       if (orientationSelected === "horizontal") {
         orientationSelected = "vertical";
       } else {
