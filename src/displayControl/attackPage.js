@@ -91,12 +91,12 @@ const displayControl = (() => {
   function setHighlightColor(event) {
     if (!event.target.style.backgroundColor ||
             event.target.style.backgroundColor === "unset") {
-      event.target.style.backgroundColor = "rgb(227, 227, 227)";
+      event.target.style.backgroundColor = "white";
     }
   }
 
   function removeHighlightColor(event) {
-    if (event.target.style.backgroundColor === "rgb(227, 227, 227)") {
+    if (event.target.style.backgroundColor === "white") {
       event.target.style.backgroundColor = "unset";
     }
   }

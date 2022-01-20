@@ -20,7 +20,7 @@ body{
         grid-template-rows: repeat(10, 2.25rem)  !important;
     }
     .gameboard-flex{
-        gap: 4rem !important;
+        gap: 3rem !important;
     }
 }
 
@@ -61,6 +61,7 @@ body{
 
 .gameboard-flex{
     display: flex;
+    width: 90%;
     justify-content: center;
     gap: 12rem;
     flex-wrap: wrap;
@@ -69,6 +70,11 @@ body{
 .display-wrap{
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    gap: 1.5%;
+    background-color: #006994;
 }
 
 .change-axis-container{
@@ -79,8 +85,7 @@ body{
 
 .change-axis-button{
     padding: 10px;
-    margin: 20px;
-    font-size: 1.5rem;
+    font-size: 20px;
 }
 
 .place-ship-container{
@@ -91,15 +96,13 @@ body{
 
 .ship-buttons{
     display: flex;
-    flex-direction: row;
-    justify-content: center;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .ship-buttons > *{
-    display: inline;
-    margin: 20px;
     font-size: 20px;
+    padding: 5px;
 }
 
 #content-container{
@@ -185,4 +188,53 @@ button{
     border-width: 1px;
     cursor: pointer;
     background-color: white;
+}
+
+.info-text-container{
+    text-align: center;
+}
+
+.info-text{
+    color:white;
+}
+
+.legend-container{
+    width: 300px;
+    background-color: white;
+    border-radius: 12px;
+    height: 50px;
+    padding: 5px 10px 5px 10px;
+}
+
+.legend{
+    display: grid;
+    height: 100%;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.legend-square{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#legend-hit-square{
+    background-color: red;
+}
+
+#legend-miss-square{
+    background-color: rgb(211,211,211);
+}
+
+#legend-sunk-square{
+    background-color: rgb(44,44,44)
+}
+
+.win-text{
+    text-align: center;
+}
+
+.win-sub-text{
+    margin-top: 10px;
+    text-align: center;
 }

@@ -1,7 +1,7 @@
 import {Player, Computer} from './player';
 import {displayControl} from './displayControl/attackPage';
 import {placeShipDisplay} from './displayControl/placeShipDisplay';
-import { popUps } from './displayControl/popUps';
+import {mainElements} from './displayControl/mainElements';
 
 const game = (() => {
 
@@ -15,8 +15,9 @@ const game = (() => {
     computerPlayer.setEnemyBoard(player.gameboard);
     player.setEnemyBoard(computerPlayer.gameboard);
     computerPlayer.placeAllShips();
+    mainElements.createInfoText();
     placeShipDisplay.renderPlaceShip(player.gameboard);
-    popUps.createStartPopUp();
+    mainElements.createStartPopUp();
     currentPage = placeShipDisplay;
     currentPlayer = player;
   }
@@ -25,6 +26,7 @@ const game = (() => {
     displayControl.unbindAttackEvents();
     currentPlayer.attack();
     clearPage();
+    mainElements.createLegend()
     displayControl.render(player.gameboard, computerPlayer.gameboard);
     switchPlayer();
   }
@@ -43,8 +45,12 @@ const game = (() => {
   }
 
   function switchPlayer() {
-    if (computerPlayer.gameboard.allSunk() || player.gameboard.allSunk()) {
-      clearPage();
+    if (computerPlayer.gameboard.allSunk()){
+      mainElements.createWinModal("player")
+
+    }
+    if(player.gameboard.allSunk()) {
+      mainElements.createWinModal("computer");
     }
     if (currentPlayer === player) {
       currentPlayer = computerPlayer;
@@ -62,6 +68,8 @@ const game = (() => {
   function switchPage() {
     if (!currentPage === placeShipDisplay) { return; }
     clearPage();
+    mainElements.createInfoText();
+    mainElements.changeInfoText("Click The Computer's Gameboard To Attack!");
     displayControl.render(player.gameboard, computerPlayer.gameboard);
     currentPage = displayControl;
     displayControl.bindAttackEvents();
