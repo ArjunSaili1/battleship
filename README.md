@@ -20,4 +20,10 @@ Complete
 
 ## Screenshots
 
- 
+ <img width="1512" alt="Screen Shot 2022-01-19 at 8 29 47 PM" src="https://user-images.githubusercontent.com/66842156/150246282-bc610bc5-f821-460f-a8f0-04f98c8c9f68.png">
+<img width="1512" alt="Screen Shot 2022-01-19 at 8 31 00 PM" src="https://user-images.githubusercontent.com/66842156/150246299-49c5dfea-cd64-4969-b201-970a4f41477d.png">
+<img width="1512" alt="Screen Shot 2022-01-19 at 8 31 55 PM" src="https://user-images.githubusercontent.com/66842156/150246315-0d830695-35d2-4423-b05e-e08b66a2417b.png">
+<img width="1512" alt="Screen Shot 2022-01-19 at 8 32 07 PM" src="https://user-images.githubusercontent.com/66842156/150246252-635af530-27b9-4d5c-908d-b8df210836ee.png">
+
+## Link to access
+https://arjunsaili1.github.io/battleship/
